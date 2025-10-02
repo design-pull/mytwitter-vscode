@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>マイページ | MyTwitter</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="mypage-body">
+    <header class="navbar">
+        <h1 class="logo">MyTwitter</h1>
+        <nav>
+            <a href="/">ホーム</a>
+            <a href="/mypage">マイページ</a>
+            <a href="/logout">ログアウト</a>
+        </nav>
+    </header>
+
+    <main class="mypage-container">
+        <section class="profile-card">
+            <img src="https://via.placeholder.com/100" alt="プロフィール画像" class="profile-img">
+            <h2 class="username">ようこそ、user さん</h2>
+            <p class="bio">ここに自己紹介や一言コメントを表示できます。</p>
+        </section>
+
+        <section class="content-card">
+            <h3>最近のアクティビティ</h3>
+            <ul class="activity-list">
+                <li>✅ ログイン成功！</li>
+                <li>💬 コメント機能を追加予定</li>
+                <li>🎨 デザインをレスポンシブ対応に改善中</li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,236 @@
+/* ========================= */
+/* マイページ用デザイン       */
+/* ========================= */
+
+.mypage-body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6fb;
+    margin: 0;
+}
+
+/* ナビゲーションバー */
+.navbar {
+    background: #5563DE;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.navbar .logo {
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.navbar nav a {
+    color: #fff;
+    margin-left: 1.2rem;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar nav a:hover {
+    text-decoration: underline;
+}
+
+/* コンテナ */
+.mypage-container {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    justify-content: center;
+    flex-wrap: wrap; /* レスポンシブで縦並びに */
+}
+
+/* プロフィールカード */
+.profile-card {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+    flex: 1 1 250px;
+    max-width: 300px;
+}
+
+.profile-img {
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.username {
+    margin: 0.5rem 0;
+    color: #333;
+}
+
+.bio {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* アクティビティカード */
+.content-card {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    flex: 2 1 400px;
+    max-width: 600px;
+}
+
+.content-card h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.activity-list {
+    list-style: none;
+    padding: 0;
+}
+
+.activity-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* ========================= */
+/* レスポンシブ対応           */
+/* ========================= */
+
+/* スマホ向け */
+@media (max-width: 480px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .navbar nav {
+        margin-top: 0.5rem;
+    }
+    .mypage-container {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    .profile-card, .content-card {
+        max-width: 100%;
+    }
+}
+
+/* タブレット向け */
+@media (max-width: 768px) {
+    .mypage-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+/* 全体の背景 */
+.login-body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #74ABE2, #5563DE);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* ログインカード */
+.login-container {
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    width: 350px;
+    max-width: 90%; /* スマホで画面幅に収まるように */
+    text-align: center;
+}
+
+/* タイトル */
+.app-title {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+/* 入力フォーム */
+.form-group {
+    margin-bottom: 1.2rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: bold;
+    color: #444;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #5563DE;
+    outline: none;
+}
+
+/* ログインボタン */
+.login-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background: #5563DE;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.login-btn:hover {
+    background: #3d4bb3;
+}
+
+/* 補足 */
+.note {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* ========================= */
+/* レスポンシブ対応          */
+/* ========================= */
+
+/* スマホ向け（幅480px以下） */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 1.5rem;
+        width: 95%;
+    }
+    .app-title {
+        font-size: 1.5rem;
+    }
+    .form-group input {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+    .login-btn {
+        font-size: 0.95rem;
+        padding: 0.7rem;
+    }
+}
+
+/* タブレット向け（幅768px以下） */
+@media (max-width: 768px) {
+    .login-container {
+        width: 80%;
+    }
+}
