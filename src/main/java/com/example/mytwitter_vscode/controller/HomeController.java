@@ -11,8 +11,9 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/mypage")
-    public String mypage() {
-        return "mypage";
-    }
+    // ★ この部分は削除済み
+    // @GetMapping("/mypage")
+    // public String mypage() {
+    // return "mypage";
+    // }
 }

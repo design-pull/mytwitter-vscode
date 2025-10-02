@@ -25,23 +25,16 @@ public class SecurityConfig {
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http.authorizeHttpRequests(auth -> auth
-                                // 公開ページ
-                                .requestMatchers("/").permitAll()
-                                // 静的リソースを許可
-                                .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                                // ログイン必須ページ
-                                .requestMatchers("/mypage").authenticated()
-                // 静的リソースや画像/CSS/JSを使うなら、必要に応じて以下を追加
-                // .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                ) // ← ここで閉じるのがポイント！
-                                .formLogin(form -> form.loginPage("/login")
-                                                .defaultSuccessUrl("/mypage", true) // ログイン後は必ず
-                                                                                    // /mypage
-                                                                                    // へ
-                                                .permitAll())
-                                .logout(logout -> logout.permitAll()).csrf(csrf -> csrf.disable()); // 開発中のみ無効化
+                                .requestMatchers("/", "/css/**", "/js/**", "/images/**").permitAll()
+                                .requestMatchers("/mypage/**").authenticated() // ← /mypage配下すべて
+                ).formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/mypage", true)
+                                .permitAll()).logout(logout -> logout.permitAll());
+
+                // 開発中は CSRF 無効化
+                http.csrf(csrf -> csrf.disable());
 
                 return http.build();
         }
+
 
 }
