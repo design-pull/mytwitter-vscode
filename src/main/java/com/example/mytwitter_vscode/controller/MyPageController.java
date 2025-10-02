@@ -8,15 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping("/mypage")
 public class MyPageController {
 
-    // 簡易的にメモリ上に保存（DBは後で導入予定）
     private String displayName = "user";
     private String bio = "ここに自己紹介や一言コメントを表示できます。";
-    private List<String> comments = new ArrayList<>();
+    private final List<String> comments = new ArrayList<>();
 
-    // マイページ表示
-    @GetMapping("/mypage")
+    @GetMapping("")
     public String mypage(Model model) {
         model.addAttribute("displayName", displayName);
         model.addAttribute("bio", bio);
@@ -24,21 +23,20 @@ public class MyPageController {
         return "mypage";
     }
 
-    // プロフィール更新
-    @PostMapping("/mypage/profile")
+    @PostMapping("/profile")
     public String updateProfile(@RequestParam String displayName,
                                 @RequestParam String bio) {
+        System.out.println("updateProfile called: " + displayName + " | " + bio);
         this.displayName = displayName;
         this.bio = bio;
-        return "redirect:/mypage"; // 更新後にマイページへリダイレクト
+        return "redirect:/mypage";
     }
 
-    // コメント投稿
-    @PostMapping("/mypage/comment")
+    @PostMapping("/comment")
     public String addComment(@RequestParam String comment) {
         if (comment != null && !comment.trim().isEmpty()) {
             comments.add(comment);
         }
-        return "redirect:/mypage"; // 投稿後にマイページへリダイレクト
+        return "redirect:/mypage";
     }
 }

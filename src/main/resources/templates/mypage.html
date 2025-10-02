@@ -21,8 +21,8 @@
         <!-- プロフィールカード -->
         <section class="profile-card">
             <img src="https://via.placeholder.com/100" alt="プロフィール画像" class="profile-img">
-            <h2 class="username">ようこそ、user さん</h2>
-            <p class="bio">ここに自己紹介や一言コメントを表示できます。</p>
+            <h2 class="username" th:text="'ようこそ' + ${displayName} + 'さん'">ようこそ、user さん</h2>
+            <p class="bio" th:utext="${bio}">ここに自己紹介や一言コメントを表示できます。</p>
         </section>
 
         <!-- アクティビティカード -->
@@ -46,7 +46,7 @@
                 </div>
                 <div class="form-group">
                     <label for="bio">自己紹介</label>
-                    <textarea id="bio" name="bio" rows="3" th:text="${bio}"></textarea>
+                    <textarea id="bio" name="bio" rows="3" th:utext="${bio}"></textarea>
                 </div>
                 <button type="submit" class="login-btn">更新する</button>
             </form>

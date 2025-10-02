@@ -1,6 +1,49 @@
 /* ========================= */
 /* マイページ用デザイン       */
 /* ========================= */
+/* ブロック要素（p, div 等）に対して */
+.bio, .comment-text {
+  overflow-wrap: break-word;   /* 標準的：長い単語を次の行へ */
+  word-break: normal;          /* 通常の単語分割ルール */
+}
+/* さらに強く折り返したい場合（英数字が連続するケース） */
+.bio, .comment-text {
+  overflow-wrap: anywhere;     /* 可能な箇所で改行 */
+  word-break: break-all;       /* 単語中でも改行（日本語混在で注意） */
+}
+
+@media (max-width: 600px) {
+  .bio, .comment-text {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
+.username { font-weight: 700; }
+.bio {
+  box-sizing: border-box;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
+}
+
+/* コメントカードの本文 */
+.comment-text {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+/* 表示名が長い場合は1行で省略 */
+.profile-card .username {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.profile-card .username {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
 /* フォーム共通 */
 .profile-form, .comment-form {
     display: flex;
