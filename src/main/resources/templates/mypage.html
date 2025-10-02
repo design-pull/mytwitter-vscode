@@ -16,12 +16,14 @@
     </header>
 
     <main class="mypage-container">
+        <!-- プロフィールカード -->
         <section class="profile-card">
             <img src="https://via.placeholder.com/100" alt="プロフィール画像" class="profile-img">
             <h2 class="username">ようこそ、user さん</h2>
             <p class="bio">ここに自己紹介や一言コメントを表示できます。</p>
         </section>
 
+        <!-- アクティビティカード -->
         <section class="content-card">
             <h3>最近のアクティビティ</h3>
             <ul class="activity-list">
@@ -29,6 +31,33 @@
                 <li>💬 コメント機能を追加予定</li>
                 <li>🎨 デザインをレスポンシブ対応に改善中</li>
             </ul>
+        </section>
+
+        <!-- プロフィール編集フォーム -->
+        <section class="content-card">
+            <h3>プロフィール編集</h3>
+            <form class="profile-form">
+                <div class="form-group">
+                    <label for="displayName">表示名</label>
+                    <input type="text" id="displayName" name="displayName" placeholder="新しい表示名">
+                </div>
+                <div class="form-group">
+                    <label for="bio">自己紹介</label>
+                    <textarea id="bio" name="bio" rows="3" placeholder="自己紹介を入力"></textarea>
+                </div>
+                <button type="submit" class="login-btn">更新する</button>
+            </form>
+        </section>
+
+        <!-- コメント投稿カード -->
+        <section class="content-card">
+            <h3>コメントを投稿</h3>
+            <form class="comment-form">
+                <div class="form-group">
+                    <textarea id="comment" name="comment" rows="3" placeholder="いまどうしてる？"></textarea>
+                </div>
+                <button type="submit" class="login-btn">投稿</button>
+            </form>
         </section>
     </main>
 </body>

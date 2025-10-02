@@ -1,6 +1,43 @@
 /* ========================= */
 /* マイページ用デザイン       */
 /* ========================= */
+/* フォーム共通 */
+.profile-form, .comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.profile-form input, 
+.profile-form textarea,
+.comment-form textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    resize: vertical;
+}
+
+.profile-form input:focus, 
+.profile-form textarea:focus,
+.comment-form textarea:focus {
+    border-color: #5563DE;
+    outline: none;
+}
+
+/* レスポンシブ調整 */
+@media (max-width: 480px) {
+    .content-card {
+        padding: 1rem;
+    }
+    .profile-form input, 
+    .profile-form textarea,
+    .comment-form textarea {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+}
 
 .mypage-body {
     font-family: 'Segoe UI', sans-serif;
