@@ -38,8 +38,6 @@
 .profile-card .username {
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.profile-card .username {
   white-space: normal;
   overflow-wrap: anywhere;
   word-break: break-word;
