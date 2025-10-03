@@ -1,3 +1,43 @@
+/* ===== Home page specific ===== */
+.home-wrap { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+
+/* Hero */
+.home-hero {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.hero-inner { max-width: 720px; }
+.hero-title { font-size: 1.8rem; margin-bottom: 0.5rem; color: #222; }
+.hero-sub { color: #555; margin-bottom: 1rem; }
+.hero-ctas .btn-primary,
+.hero-ctas .btn-outline { display: inline-block; margin-right: 0.75rem; padding: 0.6rem 1rem; border-radius: 8px; text-decoration: none; }
+.btn-primary { background:#5563DE; color:#fff; }
+.btn-outline { border:1px solid #5563DE; color:#5563DE; background:transparent; }
+
+/* Features */
+.home-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.feature { background:#fff; padding:1rem; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+
+/* Recent */
+.home-recent { background: #fff; padding: 1rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1rem; }
+.recent-list { list-style:none; padding:0; margin:0; }
+.recent-list li { padding: 0.5rem 0; border-bottom: 1px solid #eee; }
+
+/* Meta / footer */
+.home-meta { display:flex; gap:1rem; justify-content:flex-start; margin: 1rem 0; }
+.site-footer { text-align:center; color:#888; padding:1.5rem 0; }
+
+/* Responsive */
+@media (max-width: 920px) {
+  .home-hero { grid-template-columns: 1fr; text-align: center; }
+  .hero-visual { display:none; }
+  .home-features { grid-template-columns: 1fr; }
+  .home-wrap { padding: 0 0.75rem; }
+}
+
 /* ========================= */
 /* マイページ・ログイン画面 共通デザイン */
 /* ========================= */
