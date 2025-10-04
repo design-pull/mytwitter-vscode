@@ -8,13 +8,18 @@
 
 /* 長文をある行数で切って末尾に省略（例: 6行で切る） */
 .comment-body.clamp {
-  display: -webkit-box;
-  -webkit-line-clamp: 6;         /* 表示行数を指定 */
+  display: -webkit-box;        /* WebKit ブラウザ用（必須） */
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;      /* WebKit 用の行数制限（必須） */
+
+  /* 標準プロパティ（将来対応ブラウザ向け／リンターが認識すれば効く） */
+  line-clamp: 6;
+
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: normal;           /* clamp と併用するために変更 */
+  white-space: normal;         /* clamp と併用するために normal にする */
 }
+
 
 /* レイアウト崩れを防ぐためにカードの最大幅やはみ出し禁止 */
 .comment-card {
