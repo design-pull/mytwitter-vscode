@@ -1,3 +1,11 @@
+.comment-form input[name="author"] {
+  width: 100%;
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
 /* コメント本文を安全に折り返す（長い単語や連続文字列を強制改行） */
 .comment-body {
   white-space: pre-wrap;          /* 改行と空白を保持しつつ折り返す */

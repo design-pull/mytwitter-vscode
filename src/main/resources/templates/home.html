@@ -37,16 +37,77 @@
       <div th:if="${error}" style="color:#c00;margin-bottom:0.5rem;" th:text="${error}"></div>
       <div th:if="${success}" style="color:green;margin-bottom:0.5rem;" th:text="${success}"></div>
 
-      <form th:action="@{/comments}" method="post" class="comment-form" style="margin-bottom:1rem;">
+      <form th:action="@{/comments}" method="post" class="comment-form"
+        style="margin-bottom:1rem;box-sizing:border-box;">
         <textarea id="body" name="body" rows="3" placeholder="いまどうしてる？（最大500文字）" required maxlength="500"
-          style="width:100%;padding:0.6rem;border:1px solid #ccc;border-radius:6px;"></textarea>
+          style="width:100%;padding:0.6rem;border:1px solid #ccc;border-radius:6px;box-sizing:border-box;"></textarea>
+
+        <!-- 本文カウント表示 -->
+        <div style="display:flex;justify-content:flex-end;margin-top:0.25rem;">
+          <small id="body-count" style="color:#666;font-size:0.85rem;">0 / 500</small>
+        </div>
+
         <div style="display:flex;gap:0.5rem;align-items:center;margin-top:0.5rem;">
-          <input type="text" name="author" placeholder="表示名（任意）"
-            style="flex:1;padding:0.4rem;border:1px solid #ccc;border-radius:6px;max-width:220px;">
-          <button type="submit" class="login-btn">投稿</button>
+          <div style="flex:1;max-width:320px;">
+            <input id="author" type="text" name="author" placeholder="表示名（任意）" maxlength="30"
+              style="width:100%;padding:0.4rem;border:1px solid #ccc;border-radius:6px;box-sizing:border-box;">
+            <small id="author-count" style="color:#666;font-size:0.85rem;">0 / 30</small>
+          </div>
+        </div>
+
+        <!-- 投稿ボタンを textarea の下に配置 -->
+        <div style="margin-top:0.75rem; display:flex; justify-content:flex-end; gap:0.5rem;">
+          <button type="submit" class="login-btn" style="padding:0.6rem 1rem;border-radius:6px;">投稿</button>
         </div>
       </form>
 
+      <!-- 文字数カウント用スクリプト -->
+      <script>
+        (function () {
+          var body = document.getElementById('body');
+          var bodyCount = document.getElementById('body-count');
+          var author = document.getElementById('author');
+          var authorCount = document.getElementById('author-count');
+          var MAX_BODY = 500;
+          var MAX_AUTHOR = 30;
+
+          function updateCount(el, counterEl, max) {
+            if (!el || !counterEl) return;
+            var len = el.value ? el.value.length : 0;
+            counterEl.textContent = len + ' / ' + max;
+            // optional: カウントが超過したら色を変える
+            counterEl.style.color = (len > max) ? '#c00' : '#666';
+          }
+
+          if (body) {
+            body.addEventListener('input', function () { updateCount(body, bodyCount, MAX_BODY); });
+            updateCount(body, bodyCount, MAX_BODY);
+          }
+          if (author) {
+            author.addEventListener('input', function () { updateCount(author, authorCount, MAX_AUTHOR); });
+            updateCount(author, authorCount, MAX_AUTHOR);
+          }
+
+          // フォーム送信時にサーバ側の最大値も保証する（保険）
+          var form = document.querySelector('.comment-form');
+          if (form) {
+            form.addEventListener('submit', function (e) {
+              if (body && body.value.length > MAX_BODY) {
+                e.preventDefault();
+                alert('コメントは' + MAX_BODY + '文字以内で入力してください。');
+                body.focus();
+                return;
+              }
+              if (author && author.value.trim().length > MAX_AUTHOR) {
+                e.preventDefault();
+                alert('表示名は' + MAX_AUTHOR + '文字以内で入力してください。');
+                author.focus();
+                return;
+              }
+            });
+          }
+        })();
+      </script>
 
 
       <ul class="recent-list" style="list-style:none;padding:0;margin:0;">

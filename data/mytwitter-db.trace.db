@@ -42,3 +42,7 @@ insert into comment (author,body,created_at,id) values (?,?,?,default) [22001-23
 org.h2.jdbc.JdbcSQLDataException: 列 "AUTHOR CHARACTER VARYING(100)" の値が長過ぎます: "U&'\\3064\\306a\\304c\\308b\\3001\\4f1d\\3048\\308b\\3001\\30b7\\30f3\\30d7\\30eb\\306a\\30df\\3... (114)"
 Value too long for column "AUTHOR CHARACTER VARYING(100)": "U&'\\3064\\306a\\304c\\308b\\3001\\4f1d\\3048\\308b\\3001\\30b7\\30f3\\30d7\\30eb\\306a\\30df\\3... (114)"; SQL statement:
 insert into comment (author,body,created_at,id) values (?,?,?,default) [22001-232]
+2025-10-04 12:48:03.836671+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: 列 "AUTHOR CHARACTER VARYING(100)" の値が長過ぎます: "'dgkdgedfgkjzpdgks]d.gf:;pdfskghpojzxdolgjszrljdgojsodgjs@pdgkdgedfgkjzpdgks]d.g... (318)"
+Value too long for column "AUTHOR CHARACTER VARYING(100)": "'dgkdgedfgkjzpdgks]d.gf:;pdfskghpojzxdolgjszrljdgojsodgjs@pdgkdgedfgkjzpdgks]d.g... (318)"; SQL statement:
+insert into comment (author,body,created_at,id) values (?,?,?,default) [22001-232]

@@ -26,9 +26,11 @@ public class HomeController {
 
     @PostMapping("/comments")
     public String postComment(@RequestParam String body,
-                              @RequestParam(required = false) String author,
-                              RedirectAttributes redirectAttrs) {
-        String a = (author == null || author.isBlank()) ? "anonymous" : author;
+            @RequestParam(required = false) String author, RedirectAttributes redirectAttrs) {
+        final int MAX_COMMENT_LENGTH = 500;
+        final int MAX_AUTHOR_LENGTH = 30;
+
+        String a = (author == null || author.isBlank()) ? "anonymous" : author.trim();
 
         if (body == null || body.isBlank()) {
             redirectAttrs.addFlashAttribute("error", "コメントは必須です。");
@@ -36,7 +38,13 @@ public class HomeController {
         }
 
         if (body.length() > MAX_COMMENT_LENGTH) {
-            redirectAttrs.addFlashAttribute("error", "コメントは" + MAX_COMMENT_LENGTH + "文字以内で入力してください。");
+            redirectAttrs.addFlashAttribute("error",
+                    "コメントは" + MAX_COMMENT_LENGTH + "文字以内で入力してください。");
+            return "redirect:/home";
+        }
+
+        if (a.length() > MAX_AUTHOR_LENGTH) {
+            redirectAttrs.addFlashAttribute("error", "表示名は" + MAX_AUTHOR_LENGTH + "文字以内で入力してください。");
             return "redirect:/home";
         }
 
@@ -49,4 +57,5 @@ public class HomeController {
 
         return "redirect:/home";
     }
+
 }
