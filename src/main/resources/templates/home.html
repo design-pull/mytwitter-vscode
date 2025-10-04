@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="utf-8" />
   <title>MyTwitter - ホーム</title>
   <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
+
 <body class="mypage-body">
 
   <header class="navbar">
@@ -27,36 +29,55 @@
       </div>
     </section>
 
-    <section class="home-recent" style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);margin-bottom:1rem;">
+    <section class="home-recent"
+      style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);margin-bottom:1rem;">
       <h3>最近の投稿</h3>
 
+      <!-- エラーメッセージ表示 -->
+      <div th:if="${error}" style="color:#c00;margin-bottom:0.5rem;" th:text="${error}"></div>
+      <div th:if="${success}" style="color:green;margin-bottom:0.5rem;" th:text="${success}"></div>
+
       <form th:action="@{/comments}" method="post" class="comment-form" style="margin-bottom:1rem;">
-        <textarea name="body" rows="3" placeholder="いまどうしてる？" required style="width:100%;padding:0.6rem;border:1px solid #ccc;border-radius:6px;"></textarea>
-        <button type="submit" class="login-btn" style="margin-top:0.5rem;">投稿</button>
+        <textarea id="body" name="body" rows="3" placeholder="いまどうしてる？（最大500文字）" required maxlength="500"
+          style="width:100%;padding:0.6rem;border:1px solid #ccc;border-radius:6px;"></textarea>
+        <div style="display:flex;gap:0.5rem;align-items:center;margin-top:0.5rem;">
+          <input type="text" name="author" placeholder="表示名（任意）"
+            style="flex:1;padding:0.4rem;border:1px solid #ccc;border-radius:6px;max-width:220px;">
+          <button type="submit" class="login-btn">投稿</button>
+        </div>
       </form>
+
+
 
       <ul class="recent-list" style="list-style:none;padding:0;margin:0;">
         <li th:each="c : ${recentComments}" style="padding:0.75rem 0;border-bottom:1px solid #eee;">
           <div style="display:flex;gap:0.75rem;align-items:center;">
             <strong th:text="${c.author}">author</strong>
-            <small style="color:#888;margin-left:auto;" th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd HH:mm')}">2025-01-01 12:00</small>
+            <small style="color:#888;margin-left:auto;"
+              th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd HH:mm')}">2025-01-01 12:00</small>
           </div>
-          <p th:text="${c.body}" style="margin:0.5rem 0 0 0;color:#333;">コメント本文</p>
+
+          <!-- コメント本文にクラスを追加 -->
+          <p class="comment-body" th:text="${c.body}" style="margin:0.5rem 0 0 0;color:#333;">コメント本文</p>
         </li>
         <li th:if="${#lists.isEmpty(recentComments)}">まだ投稿はありません。</li>
       </ul>
+
     </section>
 
     <section class="home-features" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
-      <article class="feature" style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+      <article class="feature"
+        style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
         <h4>プロフィール編集</h4>
         <p>表示名や自己紹介を編集できます。</p>
       </article>
-      <article class="feature" style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+      <article class="feature"
+        style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
         <h4>コメント投稿</h4>
         <p>短いメッセージを投稿して共有できます。</p>
       </article>
-      <article class="feature" style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+      <article class="feature"
+        style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
         <h4>レスポンシブ</h4>
         <p>スマホ・PC 双方で快適に動作します。</p>
       </article>
@@ -67,4 +88,5 @@
     <p>© <span th:text="${T(java.time.Year).now().value}">2025</span> MyTwitter</p>
   </footer>
 </body>
+
 </html>

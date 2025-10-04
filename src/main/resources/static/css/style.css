@@ -1,3 +1,28 @@
+/* コメント本文を安全に折り返す（長い単語や連続文字列を強制改行） */
+.comment-body {
+  white-space: pre-wrap;          /* 改行と空白を保持しつつ折り返す */
+  overflow-wrap: anywhere;       /* 長い単語でも行を分割して折り返す */
+  word-break: break-word;        /* 互換性確保のため併用 */
+  hyphens: auto;                 /* 英単語のハイフネーション（ブラウザ依存） */
+}
+
+/* 長文をある行数で切って末尾に省略（例: 6行で切る） */
+.comment-body.clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 6;         /* 表示行数を指定 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;           /* clamp と併用するために変更 */
+}
+
+/* レイアウト崩れを防ぐためにカードの最大幅やはみ出し禁止 */
+.comment-card {
+  max-width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+
 /* ===== Home page specific ===== */
 .home-wrap { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
 
