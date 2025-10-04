@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>MyTwitter - ホーム</title>
-  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body class="mypage-body">
 
@@ -12,69 +12,59 @@
     <nav>
       <a href="/" aria-current="page">ホーム</a>
       <a href="/mypage">マイページ</a>
-      <a href="/logout" th:if="${#authentication.principal != null}">ログアウト</a>
-      <a href="/login" th:unless="${#authentication.principal != null}">ログイン</a>
+      <a href="/login">ログイン</a>
     </nav>
   </header>
 
-  <main class="home-wrap">
-    <!-- ヒーロー -->
-    <section class="home-hero">
-      <div class="hero-inner">
+  <main class="home-wrap" style="max-width:1100px;margin:2rem auto;padding:0 1rem;">
+    <section class="home-hero" style="display:flex;gap:1.5rem;align-items:center;margin-bottom:1.5rem;">
+      <div class="hero-inner" style="flex:1;">
         <h2 class="hero-title">つながる、伝える、シンプルなミニSNS</h2>
-        <p class="hero-sub">プロフィールを編集して、気軽にコメントを残そう。軽量でレスポンシブな体験を提供します。</p>
-        <div class="hero-ctas">
-          <a class="btn-primary" th:href="@{/mypage}" th:if="${#authentication.principal != null}">マイページへ</a>
-          <a class="btn-primary" th:href="@{/login}" th:unless="${#authentication.principal != null}">ログイン / はじめる</a>
-          <a class="btn-outline" href="#features">機能を見る</a>
-        </div>
+        <p class="hero-sub">プロフィールを編集して、気軽にコメントを残そう。</p>
       </div>
-      <div class="hero-visual" aria-hidden="true">
-        <!-- プレースホルダー画像 -->
-        <img src="https://via.placeholder.com/420x280?text=MyTwitter" alt="">
+      <div class="hero-visual" aria-hidden="true" style="width:280px;">
+        <img src="https://via.placeholder.com/280x180?text=MyTwitter" alt="" style="width:100%;border-radius:8px;">
       </div>
     </section>
 
-    <!-- 機能セクション -->
-    <section id="features" class="home-features">
-      <article class="feature">
-        <h3>プロフィール編集</h3>
-        <p>表示名や自己紹介を自由に編集できます。プロフィールで自分を表現しましょう。</p>
-      </article>
-      <article class="feature">
-        <h3>コメント投稿</h3>
-        <p>短いメッセージや感想を投稿。履歴はマイページで一覧表示されます。</p>
-      </article>
-      <article class="feature">
-        <h3>レスポンシブ＆軽量</h3>
-        <p>スマホ・PC 両対応。読み込みと操作の快適さを重視しています。</p>
-      </article>
-    </section>
+    <section class="home-recent" style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);margin-bottom:1rem;">
+      <h3>最近の投稿</h3>
 
-    <!-- 最近のアクティビティ（動的） -->
-    <section class="home-recent">
-      <h3>最近のアクティビティ</h3>
-      <ul class="recent-list">
-        <li th:each="act : ${recentActivities}" th:text="${act}">ログイン成功！</li>
-        <li th:if="${#lists.isEmpty(recentActivities)}">まだアクティビティはありません。</li>
+      <form th:action="@{/comments}" method="post" class="comment-form" style="margin-bottom:1rem;">
+        <textarea name="body" rows="3" placeholder="いまどうしてる？" required style="width:100%;padding:0.6rem;border:1px solid #ccc;border-radius:6px;"></textarea>
+        <button type="submit" class="login-btn" style="margin-top:0.5rem;">投稿</button>
+      </form>
+
+      <ul class="recent-list" style="list-style:none;padding:0;margin:0;">
+        <li th:each="c : ${recentComments}" style="padding:0.75rem 0;border-bottom:1px solid #eee;">
+          <div style="display:flex;gap:0.75rem;align-items:center;">
+            <strong th:text="${c.author}">author</strong>
+            <small style="color:#888;margin-left:auto;" th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd HH:mm')}">2025-01-01 12:00</small>
+          </div>
+          <p th:text="${c.body}" style="margin:0.5rem 0 0 0;color:#333;">コメント本文</p>
+        </li>
+        <li th:if="${#lists.isEmpty(recentComments)}">まだ投稿はありません。</li>
       </ul>
-
-      <div class="recent-cta">
-        <a class="btn-outline" th:href="@{/comments}">もっと見る</a>
-      </div>
     </section>
 
-    <!-- フットボタン群 -->
-    <section class="home-meta">
-      <a href="/terms">利用規約</a>
-      <a href="/privacy">プライバシー</a>
-      <a href="/help">ヘルプ</a>
+    <section class="home-features" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+      <article class="feature" style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+        <h4>プロフィール編集</h4>
+        <p>表示名や自己紹介を編集できます。</p>
+      </article>
+      <article class="feature" style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+        <h4>コメント投稿</h4>
+        <p>短いメッセージを投稿して共有できます。</p>
+      </article>
+      <article class="feature" style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+        <h4>レスポンシブ</h4>
+        <p>スマホ・PC 双方で快適に動作します。</p>
+      </article>
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer" style="text-align:center;color:#888;padding:1.5rem 0;">
     <p>© <span th:text="${T(java.time.Year).now().value}">2025</span> MyTwitter</p>
   </footer>
-
 </body>
 </html>

@@ -1,0 +1,8 @@
+2025-10-04 10:30:39.777649+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: 列 "BODY CHARACTER VARYING(255)" の値が長過ぎます: "U&'\\3053\\3053\\306b\\81ea\\5df1\\7d39\\4ecb\\3084\\4e00\\8a00\\30b3\\30e1\\30f3\\30c8\\3092\\8... (357)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'\\3053\\3053\\306b\\81ea\\5df1\\7d39\\4ecb\\3084\\4e00\\8a00\\30b3\\30e1\\30f3\\30c8\\3092\\8... (357)"; SQL statement:
+insert into comment (author,body,created_at,id) values (?,?,?,default) [22001-232]
+2025-10-04 10:30:51.630373+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: 列 "BODY CHARACTER VARYING(255)" の値が長過ぎます: "U&'\\3053\\3053\\306b\\81ea\\5df1\\7d39\\4ecb\\3084\\4e00\\8a00\\30b3\\30e1\\30f3\\30c8\\3092\\8... (756)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'\\3053\\3053\\306b\\81ea\\5df1\\7d39\\4ecb\\3084\\4e00\\8a00\\30b3\\30e1\\30f3\\30c8\\3092\\8... (756)"; SQL statement:
+insert into comment (author,body,created_at,id) values (?,?,?,default) [22001-232]
