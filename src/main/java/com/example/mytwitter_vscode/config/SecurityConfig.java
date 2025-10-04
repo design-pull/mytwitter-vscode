@@ -16,28 +16,19 @@ public class SecurityConfig {
     // 開発用の固定ユーザー（user/password）
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("password")
-                .roles("USER")
-                .build();
+        UserDetails user = User.withDefaultPasswordEncoder().username("user").password("password")
+                .roles("USER").build();
         return new InMemoryUserDetailsManager(user);
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/home", "/login", "/css/**", "/js/**", "/images/**").permitAll()
-                .requestMatchers("/mypage/**").authenticated()
-                .anyRequest().permitAll()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/mypage", true)
-                .permitAll()
-            )
-            .logout(logout -> logout.permitAll());
+        http.authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/home", "/login", "/css/**", "/js/**", "/images/**")
+                .permitAll().requestMatchers("/mypage/**").authenticated().anyRequest().permitAll())
+                .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/mypage", true)
+                        .permitAll())
+                .logout(logout -> logout.permitAll());
 
         // 開発中は CSRF 無効化
         http.csrf(csrf -> csrf.disable());
