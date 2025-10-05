@@ -43,14 +43,6 @@
   min-width: 0;
 }
 
-/* リンクの途中改行を防ぐ */
-.navbar nav a {
-  white-space: nowrap;
-  text-decoration: none;
-  color: #222;
-  padding: 0.25rem 0.4rem;
-}
-
 /* 狭い画面の挙動（必要なら調整） */
 @media (max-width: 720px) {
   .navbar {
@@ -192,6 +184,10 @@
   margin-left: 1.2rem;
   text-decoration: none;
   font-weight: bold;
+}
+
+.navbar nav a:first-child {
+  margin-left: 0;
 }
 
 .navbar nav a:hover {

@@ -9,13 +9,13 @@
 
 <body class="mypage-body">
     <header class="navbar">
-        <h1 class="logo">MyTwitter</h1>
+        <h1 class="logo" style="margin-right:1rem;">MyTwitter</h1>
         <nav>
             <a href="/">ホーム</a>
             <a href="/mypage">マイページ</a>
             <a href="/logout">ログアウト</a>
         </nav>
-        <div class="header-greeting" style="margin-left:1rem;">
+        <div class="header-greeting">
             <span
                 th:text="${displayName != null && displayName != '' ? 'ようこそ ' + displayName + ' さん' : 'ようこそ user さん'}">
                 ようこそ user さん
