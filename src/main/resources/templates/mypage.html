@@ -26,7 +26,6 @@
     <main class="mypage-container">
         <!-- プロフィールカード -->
         <section class="profile-card">
-            <img src="https://via.placeholder.com/100" alt="プロフィール画像" class="profile-img">
             <h2 class="username" th:text="'ようこそ' + ${displayName} + 'さん'">ようこそ、user さん</h2>
             <p class="bio" th:utext="${bio}">ここに自己紹介や一言コメントを表示できます。</p>
         </section>
