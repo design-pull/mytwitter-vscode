@@ -57,19 +57,26 @@
             <h3>コメントを投稿</h3>
             <form class="comment-form" th:action="@{/mypage/comment}" method="post">
                 <div class="form-group">
-                    <textarea id="comment" name="comment" rows="3" placeholder="いまどうしてる？"></textarea>
+                    <textarea id="comment" name="comment" rows="3" placeholder="いまどうしてる？"
+                        th:attr="maxlength=${maxCommentLength}"> </textarea>
                 </div>
                 <button type="submit" class="login-btn">投稿</button>
             </form>
         </section>
 
-        <!-- コメント一覧 -->
+        <!-- コメント一覧（500文字で切り詰め表示） -->
         <section class="content-card">
             <h3>コメント一覧</h3>
             <ul>
-                <li th:each="c : ${comments}" th:text="${c}"></li>
+                <li th:each="c : ${comments}">
+                    <strong th:text="${c.author}">匿名</strong>：
+                    <span th:text="${c.body != null && c.body.length() > maxCommentLength ?
+                      c.body.substring(0, maxCommentLength) : c.body}">コメント本文</span>
+                    <small th:text="${#temporals.format(c.createdAt, 'yyyy/MM/dd HH:mm')}">日時</small>
+                </li>
             </ul>
         </section>
+
     </main>
 </body>
 
