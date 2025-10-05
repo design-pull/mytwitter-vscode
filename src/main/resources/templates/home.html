@@ -16,6 +16,12 @@
       <a href="/mypage">マイページ</a>
       <a href="/login">ログイン</a>
     </nav>
+    <div class="header-greeting" style="margin-left:1rem;">
+      <span th:text="${displayName != null && displayName != '' ? 'ようこそ ' + displayName + ' さん' : 'ようこそ user さん'}">
+        ようこそ user さん
+      </span>
+    </div>
+
   </header>
 
   <main class="home-wrap" style="max-width:1100px;margin:2rem auto;padding:0 1rem;">

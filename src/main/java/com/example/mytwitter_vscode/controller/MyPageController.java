@@ -1,7 +1,8 @@
 package com.example.mytwitter_vscode.controller;
 
 import com.example.mytwitter_vscode.service.CommentService;
-import com.example.mytwitter_vscode.model.Comment; // ← ここを model に修正
+import com.example.mytwitter_vscode.model.Comment;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,14 +27,20 @@ public class MyPageController {
     }
 
     @GetMapping("")
-    public String mypage(Model model) {
-        model.addAttribute("displayName", displayName);
+    public String mypage(Model model, HttpSession session) {
+        // セッションに保存された表示名があれば優先して表示
+        String sessionDisplayName = (String) session.getAttribute("displayName");
+        String effectiveDisplayName = (sessionDisplayName == null || sessionDisplayName.isBlank())
+                ? this.displayName
+                : sessionDisplayName;
+
+        model.addAttribute("displayName", effectiveDisplayName);
         model.addAttribute("bio", bio);
 
         List<Comment> comments = commentService.latest();
         model.addAttribute("comments", comments);
 
-        // 追加：テンプレートで maxlength や切り詰め表示に使うため
+        // テンプレートで maxlength や切り詰め表示に使うため
         model.addAttribute("maxCommentLength", MAX_COMMENT_LENGTH);
 
         return "mypage";
@@ -42,9 +49,14 @@ public class MyPageController {
     @PostMapping("/profile")
     public String updateProfile(@RequestParam String displayName,
                                 @RequestParam String bio,
-                                RedirectAttributes redirectAttrs) {
+                                RedirectAttributes redirectAttrs,
+                                HttpSession session) {
         this.displayName = displayName == null ? "" : displayName.trim();
         this.bio = bio == null ? "" : bio.trim();
+
+        // セッションに保存（ホームで参照できるようにする）
+        session.setAttribute("displayName", this.displayName);
+
         redirectAttrs.addFlashAttribute("success", "プロフィールを更新しました。");
         return "redirect:/mypage";
     }

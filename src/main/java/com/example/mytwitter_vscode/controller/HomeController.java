@@ -1,6 +1,7 @@
 package com.example.mytwitter_vscode.controller;
 
 import com.example.mytwitter_vscode.service.CommentService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +21,15 @@ public class HomeController {
     }
 
     @GetMapping({"/", "/home"})
-    public String home(Model model) {
+    public String home(Model model, HttpSession session) {
         model.addAttribute("recentComments", commentService.latest());
         model.addAttribute("maxCommentLength", MAX_COMMENT_LENGTH);
+
+        // セッションから表示名を取得（なければ "user" を表示）
+        String sessionDisplayName = (String) session.getAttribute("displayName");
+        String displayName = (sessionDisplayName == null || sessionDisplayName.isBlank()) ? "user" : sessionDisplayName;
+        model.addAttribute("displayName", displayName);
+
         return "home";
     }
 

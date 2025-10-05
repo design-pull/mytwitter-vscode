@@ -15,6 +15,12 @@
             <a href="/mypage">マイページ</a>
             <a href="/logout">ログアウト</a>
         </nav>
+        <div class="header-greeting" style="margin-left:1rem;">
+            <span
+                th:text="${displayName != null && displayName != '' ? 'ようこそ ' + displayName + ' さん' : 'ようこそ user さん'}">
+                ようこそ user さん
+            </span>
+        </div>
     </header>
 
     <main class="mypage-container">
