@@ -13,6 +13,7 @@ public class HomeController {
 
     private final CommentService commentService;
     private static final int MAX_COMMENT_LENGTH = 500;
+    private static final int MAX_AUTHOR_LENGTH = 30;
 
     public HomeController(CommentService commentService) {
         this.commentService = commentService;
@@ -21,14 +22,14 @@ public class HomeController {
     @GetMapping({"/", "/home"})
     public String home(Model model) {
         model.addAttribute("recentComments", commentService.latest());
+        model.addAttribute("maxCommentLength", MAX_COMMENT_LENGTH);
         return "home";
     }
 
     @PostMapping("/comments")
     public String postComment(@RequestParam String body,
-            @RequestParam(required = false) String author, RedirectAttributes redirectAttrs) {
-        final int MAX_COMMENT_LENGTH = 500;
-        final int MAX_AUTHOR_LENGTH = 30;
+                              @RequestParam(required = false) String author,
+                              RedirectAttributes redirectAttrs) {
 
         String a = (author == null || author.isBlank()) ? "anonymous" : author.trim();
 
