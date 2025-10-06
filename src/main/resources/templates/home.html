@@ -10,60 +10,56 @@
 <body class="mypage-body">
 
   <header class="navbar">
-    <h1 class="logo" style="margin-right:1rem;">MyTwitter</h1>
-    <nav>
+    <h1 class="logo">MyTwitter</h1>
+
+    <nav class="main-nav">
       <a href="/" aria-current="page">ホーム</a>
       <a href="/mypage">マイページ</a>
       <a href="/login">ログイン</a>
     </nav>
+
     <div class="header-greeting">
       <span th:text="${displayName != null && displayName != '' ? 'ようこそ ' + displayName + ' さん' : 'ようこそ user さん'}">
         ようこそ user さん
       </span>
     </div>
-
   </header>
 
-  <main class="home-wrap" style="max-width:1100px;margin:2rem auto;padding:0 1rem;">
-    <section class="home-hero" style="display:flex;gap:1.5rem;align-items:center;margin-bottom:1.5rem;">
-      <div class="hero-inner" style="flex:1;">
+  <main class="home-wrap">
+    <section class="home-hero">
+      <div class="hero-inner">
         <h2 class="hero-title">つながる、伝える、シンプルなミニSNS</h2>
         <p class="hero-sub">気軽にコメントを残そう。</p>
       </div>
-      <div class="hero-visual" aria-hidden="true" style="width:280px;">
-        <img src="https://via.placeholder.com/280x180?text=MyTwitter" alt="" style="width:100%;border-radius:8px;">
+
+      <div class="hero-visual" aria-hidden="true">
+        <img src="https://via.placeholder.com/280x180?text=MyTwitter" alt="" class="hero-image">
       </div>
     </section>
 
-    <section class="home-recent"
-      style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);margin-bottom:1rem;">
+    <section class="home-recent">
       <h3>最近の投稿</h3>
 
-      <!-- エラーメッセージ表示 -->
-      <div th:if="${error}" style="color:#c00;margin-bottom:0.5rem;" th:text="${error}"></div>
-      <div th:if="${success}" style="color:green;margin-bottom:0.5rem;" th:text="${success}"></div>
+      <div th:if="${error}" class="msg msg-error" th:text="${error}"></div>
+      <div th:if="${success}" class="msg msg-success" th:text="${success}"></div>
 
-      <form th:action="@{/comments}" method="post" class="comment-form"
-        style="margin-bottom:1rem;box-sizing:border-box;">
+      <form th:action="@{/comments}" method="post" class="comment-form">
         <textarea id="body" name="body" rows="3" placeholder="いまどうしてる？（最大500文字）" required maxlength="500"
-          style="width:100%;padding:0.6rem;border:1px solid #ccc;border-radius:6px;box-sizing:border-box;"></textarea>
+          class="input-textarea"></textarea>
 
-        <!-- 本文カウント表示 -->
-        <div style="display:flex;justify-content:flex-end;margin-top:0.25rem;">
-          <small id="body-count" style="color:#666;font-size:0.85rem;">0 / 500</small>
+        <div class="count-row">
+          <small id="body-count" class="count-text">0 / 500</small>
         </div>
 
-        <div style="display:flex;gap:0.5rem;align-items:center;margin-top:0.5rem;">
-          <div style="flex:1;max-width:320px;">
-            <input id="author" type="text" name="author" placeholder="表示名（任意）" maxlength="30"
-              style="width:100%;padding:0.4rem;border:1px solid #ccc;border-radius:6px;box-sizing:border-box;">
-            <small id="author-count" style="color:#666;font-size:0.85rem;">0 / 30</small>
+        <div class="author-row">
+          <div class="author-input-wrap">
+            <input id="author" type="text" name="author" placeholder="表示名（任意）" maxlength="30" class="input-text">
+            <small id="author-count" class="count-text">0 / 30</small>
           </div>
         </div>
 
-        <!-- 投稿ボタンを textarea の下に配置 -->
-        <div style="margin-top:0.75rem; display:flex; justify-content:flex-end; gap:0.5rem;">
-          <button type="submit" class="login-btn" style="padding:0.6rem 1rem;border-radius:6px;">投稿</button>
+        <div class="submit-row">
+          <button type="submit" class="login-btn">投稿</button>
         </div>
       </form>
 
@@ -71,45 +67,40 @@
         const MAX_COMMENT_LENGTH = /*[[${maxCommentLength}]]*/ 500;
       </script>
 
-
-      <ul class="recent-list" style="list-style:none;padding:0;margin:0;">
-        <li th:each="c : ${recentComments}" style="padding:0.75rem 0;border-bottom:1px solid #eee;">
-          <div style="display:flex;gap:0.75rem;align-items:center;">
+      <ul class="recent-list">
+        <li th:each="c : ${recentComments}" class="recent-item">
+          <div class="recent-meta">
             <strong th:text="${c.author}">author</strong>
-            <small style="color:#888;margin-left:auto;"
-              th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd HH:mm')}">2025-01-01 12:00</small>
+            <small class="recent-time" th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd HH:mm')}">2025-01-01
+              12:00</small>
           </div>
 
-          <!-- コメント本文にクラスを追加 -->
-          <p class="comment-body" th:text="${c.body}" style="margin:0.5rem 0 0 0;color:#333;">コメント本文</p>
+          <p class="comment-body" th:text="${c.body}">コメント本文</p>
         </li>
         <li th:if="${#lists.isEmpty(recentComments)}">まだ投稿はありません。</li>
       </ul>
-
     </section>
 
-    <section class="home-features" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
-      <article class="feature"
-        style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+    <section class="home-features">
+      <article class="feature">
         <h4>プロフィール編集</h4>
         <p>表示名や自己紹介を編集できます。</p>
       </article>
-      <article class="feature"
-        style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+      <article class="feature">
         <h4>コメント投稿</h4>
         <p>短いメッセージを投稿して共有できます。</p>
       </article>
-      <article class="feature"
-        style="background:#fff;padding:1rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+      <article class="feature">
         <h4>レスポンシブ</h4>
         <p>スマホ・PC 双方で快適に動作します。</p>
       </article>
     </section>
   </main>
 
-  <footer class="site-footer" style="text-align:center;color:#888;padding:1.5rem 0;">
+  <footer class="site-footer">
     <p>© <span th:text="${T(java.time.Year).now().value}">2025</span> MyTwitter</p>
   </footer>
+
   <script th:src="@{/js/comment-counts.js}" defer></script>
 </body>
 
