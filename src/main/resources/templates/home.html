@@ -70,7 +70,7 @@
       <ul class="recent-list">
         <li th:each="c : ${recentComments}" class="recent-item">
           <div class="recent-meta">
-            <strong th:text="${c.author}">author</strong>
+            <strong th:text="${c.author == 'anonymous' ? '匿名' : c.author}">匿名</strong>
             <small class="recent-time" th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd HH:mm')}">2025-01-01
               12:00</small>
           </div>

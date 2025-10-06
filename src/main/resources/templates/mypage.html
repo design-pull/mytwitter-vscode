@@ -74,15 +74,22 @@
             <form class="comment-form" th:action="@{/mypage/comment}" method="post" novalidate>
                 <div class="form-group">
                     <label for="comment">コメント</label>
-                    <textarea id="comment" name="comment" rows="3" required aria-required="true"
-                        aria-describedby="comment-help" placeholder="いまどうしてる？（最大500文字）" class="input-textarea"
-                        th:text="${commentDraft != null ? commentDraft : ''}"
-                        th:attr="maxlength=${maxCommentLength}"></textarea>
+                    <textarea id="comment" name="comment" rows="3" maxlength="${maxCommentLength}" required
+                        aria-describedby="comment-help" placeholder="いまどうしてる？" class="input-textarea"
+                        th:text="${commentDraft != null ? commentDraft : ''}"></textarea>
                     <small id="comment-help" class="form-help">現在: <span id="comment-count">0</span></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="author">表示名（任意）</label>
+                    <input id="author" name="author" type="text" maxlength="30" class="input-text" placeholder="表示名（任意）"
+                        th:value="${displayName}" aria-describedby="author-help" />
+                    <small id="author-help" class="form-help">現在: <span id="author-count">0</span></small>
                 </div>
 
                 <button type="submit" class="login-btn">投稿</button>
             </form>
+
         </section>
 
 
@@ -92,7 +99,7 @@
             <ul class="comment-list">
                 <li class="comment-item" th:each="c : ${comments}">
                     <div class="comment-meta">
-                        <strong th:text="${c.author}">匿名</strong>
+                        <strong th:text="${c.author == 'anonymous' ? '匿名' : c.author}">匿名</strong>
                         <small class="comment-time"
                             th:text="${#temporals.format(c.createdAt, 'yyyy/MM/dd HH:mm')}">日時</small>
                     </div>
