@@ -1,3 +1,8 @@
+function insertSoftBreaks(s, maxRun) {
+  return s.replace(new RegExp('([^\\s]{' + maxRun + '})(?!\\s)', 'g'), '$1\u200B');
+}
+// 使い方: showText = insertSoftBreaks(c.body, 30);
+
 // src/main/resources/static/js/mypage-profile-counts.js
 (function () {
   'use strict';

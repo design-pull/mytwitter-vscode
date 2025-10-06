@@ -67,54 +67,6 @@
         </div>
       </form>
 
-      <!-- 文字数カウント用スクリプト -->
-      <script>
-        (function () {
-          var body = document.getElementById('body');
-          var bodyCount = document.getElementById('body-count');
-          var author = document.getElementById('author');
-          var authorCount = document.getElementById('author-count');
-          var MAX_BODY = 500;
-          var MAX_AUTHOR = 30;
-
-          function updateCount(el, counterEl, max) {
-            if (!el || !counterEl) return;
-            var len = el.value ? el.value.length : 0;
-            counterEl.textContent = len + ' / ' + max;
-            // optional: カウントが超過したら色を変える
-            counterEl.style.color = (len > max) ? '#c00' : '#666';
-          }
-
-          if (body) {
-            body.addEventListener('input', function () { updateCount(body, bodyCount, MAX_BODY); });
-            updateCount(body, bodyCount, MAX_BODY);
-          }
-          if (author) {
-            author.addEventListener('input', function () { updateCount(author, authorCount, MAX_AUTHOR); });
-            updateCount(author, authorCount, MAX_AUTHOR);
-          }
-
-          // フォーム送信時にサーバ側の最大値も保証する（保険）
-          var form = document.querySelector('.comment-form');
-          if (form) {
-            form.addEventListener('submit', function (e) {
-              if (body && body.value.length > MAX_BODY) {
-                e.preventDefault();
-                alert('コメントは' + MAX_BODY + '文字以内で入力してください。');
-                body.focus();
-                return;
-              }
-              if (author && author.value.trim().length > MAX_AUTHOR) {
-                e.preventDefault();
-                alert('表示名は' + MAX_AUTHOR + '文字以内で入力してください。');
-                author.focus();
-                return;
-              }
-            });
-          }
-        })();
-      </script>
-      <!-- Thymeleaf 側 -->
       <script>
         const MAX_COMMENT_LENGTH = /*[[${maxCommentLength}]]*/ 500;
       </script>
@@ -158,6 +110,7 @@
   <footer class="site-footer" style="text-align:center;color:#888;padding:1.5rem 0;">
     <p>© <span th:text="${T(java.time.Year).now().value}">2025</span> MyTwitter</p>
   </footer>
+  <script th:src="@{/js/comment-counts.js}" defer></script>
 </body>
 
 </html>
