@@ -22,6 +22,10 @@ public class MyPageController {
     private static final int MAX_COMMENT_LENGTH = 500;
     private static final int MAX_AUTHOR_LENGTH = 30;
 
+    // プロフィール関連の最大長
+    private static final int MAX_DISPLAYNAME_LENGTH = 10;
+    private static final int MAX_BIO_LENGTH = 100;
+
     public MyPageController(CommentService commentService) {
         this.commentService = commentService;
     }
@@ -34,8 +38,11 @@ public class MyPageController {
                 ? this.displayName
                 : sessionDisplayName;
 
+        String sessionBio = (String) session.getAttribute("bio");
+        String effectiveBio = (sessionBio == null) ? this.bio : sessionBio;
+
         model.addAttribute("displayName", effectiveDisplayName);
-        model.addAttribute("bio", bio);
+        model.addAttribute("bio", effectiveBio);
 
         List<Comment> comments = commentService.latest();
         model.addAttribute("comments", comments);
@@ -43,19 +50,40 @@ public class MyPageController {
         // テンプレートで maxlength や切り詰め表示に使うため
         model.addAttribute("maxCommentLength", MAX_COMMENT_LENGTH);
 
+        // プロフィール最大長をテンプレートへ渡す
+        model.addAttribute("maxDisplayNameLength", MAX_DISPLAYNAME_LENGTH);
+        model.addAttribute("maxBioLength", MAX_BIO_LENGTH);
+
         return "mypage";
     }
 
     @PostMapping("/profile")
-    public String updateProfile(@RequestParam String displayName,
-                                @RequestParam String bio,
+    public String updateProfile(@RequestParam(required = false) String displayName,
+                                @RequestParam(required = false) String bio,
                                 RedirectAttributes redirectAttrs,
                                 HttpSession session) {
-        this.displayName = displayName == null ? "" : displayName.trim();
-        this.bio = bio == null ? "" : bio.trim();
 
-        // セッションに保存（ホームで参照できるようにする）
-        session.setAttribute("displayName", this.displayName);
+        String trimmedName = displayName == null ? "" : displayName.trim();
+        String trimmedBio = bio == null ? "" : bio.trim();
+
+        if (trimmedName.length() == 0) {
+            redirectAttrs.addFlashAttribute("error", "表示名は必須です。");
+            return "redirect:/mypage";
+        }
+        if (trimmedName.length() > MAX_DISPLAYNAME_LENGTH) {
+            redirectAttrs.addFlashAttribute("error", "表示名は" + MAX_DISPLAYNAME_LENGTH + "文字以内で入力してください。");
+            return "redirect:/mypage";
+        }
+        if (trimmedBio.length() > MAX_BIO_LENGTH) {
+            redirectAttrs.addFlashAttribute("error", "自己紹介は" + MAX_BIO_LENGTH + "文字以内で入力してください。");
+            return "redirect:/mypage";
+        }
+
+        // セッションとコントローラ保持値に保存
+        this.displayName = trimmedName;
+        this.bio = trimmedBio;
+        session.setAttribute("displayName", trimmedName);
+        session.setAttribute("bio", trimmedBio);
 
         redirectAttrs.addFlashAttribute("success", "プロフィールを更新しました。");
         return "redirect:/mypage";

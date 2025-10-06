@@ -1,3 +1,10 @@
+ul {
+  /* リストマーカーを非表示にする */
+  list-style-type: none;
+  /* (補足: 必要に応じて、マーカー分の左の余白も削除する) */
+  padding-left: 0;
+}
+
 /* 親をフレックスにして折り返しを許可（既にある場合は重複しないよう統合） */
 .navbar {
   display: flex;
@@ -6,7 +13,8 @@
   padding: 0.75rem 1rem;
   background: #fff;
   border-bottom: 1px solid #eaeaea;
-  flex-wrap: nowrap; /* 折り返しは不要なら nowrap に */
+  flex-wrap: nowrap;
+  /* 折り返しは不要なら nowrap に */
 }
 
 /* ロゴは左グループの先頭 */
@@ -21,8 +29,10 @@
 
 /* 挨拶をロゴと同じ左側グループに並べる */
 .header-greeting {
-  order: 0;               /* logo と同じグループに配置 */
-  margin-left: 0;         /* inline style を削除してこれを有効にする */
+  order: 0;
+  /* logo と同じグループに配置 */
+  margin-left: 0;
+  /* inline style を削除してこれを有効にする */
   display: inline-flex;
   align-items: center;
   gap: .5rem;
@@ -35,7 +45,8 @@
 /* ナビは右端に寄せる */
 .navbar nav {
   order: 1;
-  margin-left: auto;      /* 残りスペースを占めて右端へ */
+  margin-left: auto;
+  /* 残りスペースを占めて右端へ */
   display: flex;
   gap: .75rem;
   align-items: center;
@@ -46,12 +57,15 @@
 /* 狭い画面の挙動（必要なら調整） */
 @media (max-width: 720px) {
   .navbar {
-    flex-wrap: wrap; /* 幅が狭くなれば折り返す */
+    flex-wrap: wrap;
+    /* 幅が狭くなれば折り返す */
   }
+
   .header-greeting {
     order: 0;
     flex-basis: auto;
   }
+
   .navbar nav {
     order: 2;
     width: 100%;
@@ -70,24 +84,31 @@
 
 /* コメント本文を安全に折り返す（長い単語や連続文字列を強制改行） */
 .comment-body {
-  white-space: pre-wrap;          /* 改行と空白を保持しつつ折り返す */
-  overflow-wrap: anywhere;       /* 長い単語でも行を分割して折り返す */
-  word-break: break-word;        /* 互換性確保のため併用 */
-  hyphens: auto;                 /* 英単語のハイフネーション（ブラウザ依存） */
+  white-space: pre-wrap;
+  /* 改行と空白を保持しつつ折り返す */
+  overflow-wrap: anywhere;
+  /* 長い単語でも行を分割して折り返す */
+  word-break: break-word;
+  /* 互換性確保のため併用 */
+  hyphens: auto;
+  /* 英単語のハイフネーション（ブラウザ依存） */
 }
 
 /* 長文をある行数で切って末尾に省略（例: 6行で切る） */
 .comment-body.clamp {
-  display: -webkit-box;        /* WebKit ブラウザ用（必須） */
+  display: -webkit-box;
+  /* WebKit ブラウザ用（必須） */
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 6;      /* WebKit 用の行数制限（必須） */
+  -webkit-line-clamp: 6;
+  /* WebKit 用の行数制限（必須） */
 
   /* 標準プロパティ（将来対応ブラウザ向け／リンターが認識すれば効く） */
   line-clamp: 6;
 
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: normal;         /* clamp と併用するために normal にする */
+  white-space: normal;
+  /* clamp と併用するために normal にする */
 }
 
 
@@ -99,7 +120,11 @@
 }
 
 /* ===== Home page specific ===== */
-.home-wrap { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+.home-wrap {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
 
 /* Hero */
 .home-hero {
@@ -109,33 +134,109 @@
   align-items: center;
   margin-bottom: 2rem;
 }
-.hero-inner { max-width: 720px; }
-.hero-title { font-size: 1.8rem; margin-bottom: 0.5rem; color: #222; }
-.hero-sub { color: #555; margin-bottom: 1rem; }
+
+.hero-inner {
+  max-width: 720px;
+}
+
+.hero-title {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.hero-sub {
+  color: #555;
+  margin-bottom: 1rem;
+}
+
 .hero-ctas .btn-primary,
-.hero-ctas .btn-outline { display: inline-block; margin-right: 0.75rem; padding: 0.6rem 1rem; border-radius: 8px; text-decoration: none; }
-.btn-primary { background:#5563DE; color:#fff; }
-.btn-outline { border:1px solid #5563DE; color:#5563DE; background:transparent; }
+.hero-ctas .btn-outline {
+  display: inline-block;
+  margin-right: 0.75rem;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: #5563DE;
+  color: #fff;
+}
+
+.btn-outline {
+  border: 1px solid #5563DE;
+  color: #5563DE;
+  background: transparent;
+}
 
 /* Features */
-.home-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
-.feature { background:#fff; padding:1rem; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+.home-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.feature {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
 
 /* Recent */
-.home-recent { background: #fff; padding: 1rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1rem; }
-.recent-list { list-style:none; padding:0; margin:0; }
-.recent-list li { padding: 0.5rem 0; border-bottom: 1px solid #eee; }
+.home-recent {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1rem;
+}
+
+.recent-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recent-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
 
 /* Meta / footer */
-.home-meta { display:flex; gap:1rem; justify-content:flex-start; margin: 1rem 0; }
-.site-footer { text-align:center; color:#888; padding:1.5rem 0; }
+.home-meta {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+  margin: 1rem 0;
+}
+
+.site-footer {
+  text-align: center;
+  color: #888;
+  padding: 1.5rem 0;
+}
 
 /* Responsive */
 @media (max-width: 920px) {
-  .home-hero { grid-template-columns: 1fr; text-align: center; }
-  .hero-visual { display:none; }
-  .home-features { grid-template-columns: 1fr; }
-  .home-wrap { padding: 0 0.75rem; }
+  .home-hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-visual {
+    display: none;
+  }
+
+  .home-features {
+    grid-template-columns: 1fr;
+  }
+
+  .home-wrap {
+    padding: 0 0.75rem;
+  }
 }
 
 /* ========================= */
@@ -143,7 +244,8 @@
 /* ========================= */
 
 /* --- 基本設定 --- */
-.mypage-body, .login-body {
+.mypage-body,
+.login-body {
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
 }
@@ -211,7 +313,7 @@
   background: #fff;
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 }
 
@@ -279,7 +381,8 @@
 /* ========================= */
 /* フォーム共通 */
 /* ========================= */
-.profile-form, .comment-form {
+.profile-form,
+.comment-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -314,7 +417,7 @@
   background: #fff;
   padding: 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   width: 350px;
   max-width: 90%;
   text-align: center;
@@ -385,14 +488,18 @@
     flex-direction: column;
     align-items: flex-start;
   }
+
   .navbar nav {
     margin-top: 0.5rem;
   }
+
   .mypage-container {
     flex-direction: column;
     padding: 1rem;
   }
-  .profile-card, .content-card {
+
+  .profile-card,
+  .content-card {
     max-width: 100%;
   }
 
@@ -400,7 +507,7 @@
     padding: 1rem;
   }
 
-  .profile-form input, 
+  .profile-form input,
   .profile-form textarea,
   .comment-form textarea {
     font-size: 0.9rem;
@@ -411,13 +518,16 @@
     padding: 1.5rem;
     width: 95%;
   }
+
   .app-title {
     font-size: 1.5rem;
   }
+
   .form-group input {
     font-size: 0.9rem;
     padding: 0.5rem;
   }
+
   .login-btn {
     font-size: 0.95rem;
     padding: 0.7rem;
@@ -433,7 +543,8 @@
     gap: 1rem;
   }
 
-  .profile-card, .content-card {
+  .profile-card,
+  .content-card {
     width: 100%;
     max-width: 720px;
   }
