@@ -67,20 +67,24 @@
         const MAX_COMMENT_LENGTH = /*[[${maxCommentLength}]]*/ 500;
       </script>
 
+      <!-- コメント一覧カード（mypage と同じ見た目に揃える） -->
+      <h3>コメント一覧</h3>
       <ul class="recent-list">
-        <li th:each="c : ${recentComments}" class="recent-item">
-          <div class="recent-meta">
-            <strong th:text="${c.author == 'anonymous' ? '匿名' : c.author}">匿名</strong>
-            <small class="recent-time" th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd HH:mm')}">2025-01-01
-              12:00</small>
+        <li th:each="c : ${recentComments}" class="recent-item comment-item">
+          <div class="comment-meta recent-meta">
+            <strong th:text="${c.author == 'anonymous' ? '匿名（とくめい）' : c.author}">匿名（とくめい）</strong>
+            <small class="comment-time recent-time"
+              th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd HH:mm')}">2025-01-01 12:00</small>
           </div>
-
-          <p class="comment-body" th:text="${c.body}">コメント本文</p>
+          <p class="comment-body"
+            th:text="${c.body != null && c.body.length() > maxCommentLength ? c.body.substring(0, maxCommentLength) + '...' : c.body}">
+            コメント本文
+          </p>
         </li>
         <li th:if="${#lists.isEmpty(recentComments)}">まだ投稿はありません。</li>
       </ul>
     </section>
-
+    
     <section class="home-features">
       <article class="feature">
         <h4>プロフィール編集</h4>
@@ -98,7 +102,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>© <span th:text="${T(java.time.Year).now().value}">2025</span> MyTwitter</p>
+    <p>© <span th:text="${T(java.time.Year).now().value}">2025</span> MyTwitter design-pull.com</p>
   </footer>
 
   <script th:src="@{/js/comment-counts.js}" defer></script>

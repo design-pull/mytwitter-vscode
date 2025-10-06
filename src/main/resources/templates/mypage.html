@@ -51,14 +51,12 @@
                     <small id="displayName-help" class="form-help">現在: <span id="displayName-count">0</span> /
                         10</small>
                 </div>
-
                 <div class="form-group">
                     <label for="bio">自己紹介</label>
                     <textarea id="bio" name="bio" rows="3" th:utext="${bio}" maxlength="100" aria-describedby="bio-help"
                         placeholder="自己紹介を入力してください"></textarea>
                     <small id="bio-help" class="form-help">現在: <span id="bio-count">0</span> / 100</small>
                 </div>
-
                 <button type="submit" class="login-btn">更新する</button>
             </form>
         </section>
@@ -74,9 +72,9 @@
             <form class="comment-form" th:action="@{/mypage/comment}" method="post" novalidate>
                 <div class="form-group">
                     <label for="comment">コメント</label>
-                    <textarea id="comment" name="comment" rows="3" maxlength="${maxCommentLength}" required
-                        aria-describedby="comment-help" placeholder="いまどうしてる？" class="input-textarea"
-                        th:text="${commentDraft != null ? commentDraft : ''}"></textarea>
+                    <textarea id="comment" name="comment" rows="3" required aria-describedby="comment-help"
+                        placeholder="いまどうしてる？（最大500文字）" class="input-textarea" th:attr="maxlength=${maxCommentLength}"
+                        maxlength="500" th:text="${commentDraft != null ? commentDraft : ''}"></textarea>
                     <small id="comment-help" class="form-help">現在: <span id="comment-count">0</span></small>
                 </div>
 
@@ -89,9 +87,7 @@
 
                 <button type="submit" class="login-btn">投稿</button>
             </form>
-
         </section>
-
 
         <!-- コメント一覧（500文字で切り詰め表示） -->
         <section class="content-card">
@@ -99,7 +95,7 @@
             <ul class="comment-list">
                 <li class="comment-item" th:each="c : ${comments}">
                     <div class="comment-meta">
-                        <strong th:text="${c.author == 'anonymous' ? '匿名' : c.author}">匿名</strong>
+                        <strong th:text="${c.author == 'anonymous' ? '匿名（とくめい）' : c.author}">匿名（とくめい）</strong>
                         <small class="comment-time"
                             th:text="${#temporals.format(c.createdAt, 'yyyy/MM/dd HH:mm')}">日時</small>
                     </div>
@@ -110,10 +106,9 @@
                 </li>
             </ul>
         </section>
-
     </main>
     <footer class="site-footer" style="text-align:center;color:#888;padding:1.5rem 0;">
-        <p>© <span th:text="${T(java.time.Year).now().value}">2025</span> MyTwitter</p>
+        <p>© <span th:text="${T(java.time.Year).now().value}">2025</span> MyTwitter design-pull.com</p>
     </footer>
 
     <!-- コメントカウント用スクリプトを1回だけ読み込む -->
