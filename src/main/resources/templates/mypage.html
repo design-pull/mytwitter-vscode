@@ -45,7 +45,7 @@
             <h3>プロフィール編集</h3>
             <form class="profile-form" th:action="@{/mypage/profile}" method="post" novalidate>
                 <div class="form-group">
-                    <label for="displayName">表示名（10文字以内）</label>
+                    <label for="displayName">表示名</label>
                     <input type="text" id="displayName" name="displayName" th:value="${displayName}" maxlength="10"
                         required aria-required="true" aria-describedby="displayName-help" placeholder="新しい表示名" />
                     <small id="displayName-help" class="form-help">現在: <span id="displayName-count">0</span> /
@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="bio">自己紹介（100文字以内）</label>
+                    <label for="bio">自己紹介</label>
                     <textarea id="bio" name="bio" rows="3" th:utext="${bio}" maxlength="100" aria-describedby="bio-help"
                         placeholder="自己紹介を入力してください"></textarea>
                     <small id="bio-help" class="form-help">現在: <span id="bio-count">0</span> / 100</small>

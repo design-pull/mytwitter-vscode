@@ -99,11 +99,10 @@
 }
 
 /* ===== Home page specific ===== */
-.home-wrap { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+.home-wrap { max-width: 1200px; margin: 2rem auto; padding: 0 4rem; }
 
 /* Hero */
 .home-hero {
-  display: grid;
   grid-template-columns: 1fr 420px;
   gap: 2rem;
   align-items: center;
@@ -200,7 +199,7 @@
 .mypage-container {
   display: flex;
   gap: 2rem;
-  padding: 2rem;
+  padding: 4rem;
   justify-content: center;
   flex-wrap: wrap;
 }
