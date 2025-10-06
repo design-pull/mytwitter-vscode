@@ -328,6 +328,7 @@
 .form-group {
   margin-bottom: 1.2rem;
   text-align: left;
+  color: rgb(102, 102, 102);
 }
 
 .form-group label {

@@ -38,24 +38,24 @@
     </section>
 
     <section class="home-recent">
-      <h3>最近の投稿</h3>
+      <h3>コメントを投稿しよう</h3>
 
       <div th:if="${error}" class="msg msg-error" th:text="${error}"></div>
       <div th:if="${success}" class="msg msg-success" th:text="${success}"></div>
 
       <form th:action="@{/comments}" method="post" class="comment-form">
-        <textarea id="body" name="body" rows="3" placeholder="いまどうしてる？（最大500文字）" required maxlength="500"
-          class="input-textarea"></textarea>
-
-        <div class="count-row">
-          <small id="body-count" class="count-text">0 / 500</small>
+        <div class="form-group">
+          <label for="body">コメント</label>
+          <textarea id="body" name="body" rows="3" maxlength="500" required aria-required="true"
+            aria-describedby="body-help" placeholder="いまどうしてる？（最大500文字）" class="input-textarea"></textarea>
+          <small id="body-help" class="form-help">現在: <span id="body-count">0</span></small>
         </div>
 
-        <div class="author-row">
-          <div class="author-input-wrap">
-            <input id="author" type="text" name="author" placeholder="表示名（任意）" maxlength="30" class="input-text">
-            <small id="author-count" class="count-text">0 / 30</small>
-          </div>
+        <div class="form-group">
+          <label for="author">表示名（任意）</label>
+          <input id="author" type="text" name="author" maxlength="30" aria-describedby="author-help"
+            placeholder="表示名（任意）" class="input-text" />
+          <small id="author-help" class="form-help">現在: <span id="author-count">0</span></small>
         </div>
 
         <div class="submit-row">
