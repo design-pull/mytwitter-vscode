@@ -31,14 +31,26 @@
         </section>
 
         <!-- アクティビティカード -->
-        <section class="content-card">
-            <h3>最近のアクティビティ</h3>
-            <ul class="activity-list">
-                <li>✅ ログイン成功！</li>
-                <li>💬 コメント機能を追加予定</li>
-                <li>🎨 デザインをレスポンシブ対応に改善中</li>
+        <section class="content-card" aria-labelledby="activity-heading" role="region">
+            <h3 id="activity-heading">最近のアクティビティ</h3>
+            <p class="sr-only" id="activity-desc">最近のアクティビティの更新がここに表示されます。重要な更新はスクリーンリーダーに通知されます。</p>
+
+            <ul class="activity-list" aria-live="polite" aria-relevant="additions">
+                <li>
+                    <span aria-hidden="true">✅</span>
+                    <span class="activity-text">ログイン成功！</span>
+                </li>
+                <li>
+                    <span aria-hidden="true">💬</span>
+                    <span class="activity-text">コメント機能を追加予定</span>
+                </li>
+                <li>
+                    <span aria-hidden="true">🎨</span>
+                    <span class="activity-text">デザインをレスポンシブ対応に改善中</span>
+                </li>
             </ul>
         </section>
+
 
         <!-- プロフィール編集フォーム -->
         <section class="content-card">
