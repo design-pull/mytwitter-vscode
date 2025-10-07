@@ -3,6 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
+    <!-- CSRF がある場合だけ出力 -->
+    <meta th:if="${_csrf != null}" name="_csrf" th:content="${_csrf.token}" />
+    <meta th:if="${_csrf != null}" name="_csrf_header" th:content="${_csrf.headerName}" />
+
     <title>マイページ | MyTwitter</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
@@ -120,7 +124,14 @@
 
     <script th:src="@{/js/comment-counts.js}" defer></script>
     <script th:src="@{/js/activity.js}" defer></script>
-    <script th:src="@{/js/activity-optistic.js}" defer></script>
+    <script th:src="@{/js/fetch-with-csrf.js}" defer></script>
+    <script th:src="@{/js/comment-ajax.js}" defer></script>
+    <script th:src="@{/js/activity.js}" defer></script>
+
+    <script>
+        window.MAX_COMMENT_LENGTH = /*[[${maxCommentLength}]]*/ 500;
+    </script>
+
 </body>
 
 </html>

@@ -49,10 +49,4 @@
 
 	// Expose for other modules
 	window.addActivity = addActivity;
-
-	// Example usage: window.addActivity('✅', 'ログイン成功しました');
-
-	// ブラウザの devtools コンソールで実行
-	window.addActivity('✅', '新しいアクティビティが追加されました');
-
 })();
