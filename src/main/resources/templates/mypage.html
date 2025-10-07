@@ -34,19 +34,14 @@
         <section class="content-card" aria-labelledby="activity-heading" role="region">
             <h3 id="activity-heading">最近のアクティビティ</h3>
             <p class="sr-only" id="activity-desc">最近のアクティビティの更新がここに表示されます。重要な更新はスクリーンリーダーに通知されます。</p>
-
-            <ul class="activity-list" aria-live="polite" aria-relevant="additions">
-                <li>
-                    <span aria-hidden="true">✅</span>
-                    <span class="activity-text">ログイン成功！</span>
-                </li>
+            <ul id="activityList" class="activity-list" aria-live="polite" aria-relevant="additions">
                 <li>
                     <span aria-hidden="true">💬</span>
-                    <span class="activity-text">コメント機能を追加予定</span>
+                    <span class="activity-text">コメント機能を追加</span>
                 </li>
                 <li>
                     <span aria-hidden="true">🎨</span>
-                    <span class="activity-text">デザインをレスポンシブ対応に改善中</span>
+                    <span class="activity-text">デザインをレスポンシブ対応</span>
                 </li>
             </ul>
         </section>
@@ -81,7 +76,7 @@
         <section class="content-card">
             <h3>コメントを投稿</h3>
 
-            <form class="comment-form" th:action="@{/mypage/comment}" method="post" novalidate>
+            <form class="comment-form" th:action="@{/mypage/comment}" method="post" data-ajax="true" novalidate>
                 <div class="form-group">
                     <label for="comment">コメント</label>
                     <textarea id="comment" name="comment" rows="3" required aria-describedby="comment-help"
@@ -123,8 +118,9 @@
         <p>© <span th:text="${T(java.time.Year).now().value}">2025</span> MyTwitter design-pull.com</p>
     </footer>
 
-    <!-- コメントカウント用スクリプトを1回だけ読み込む -->
     <script th:src="@{/js/comment-counts.js}" defer></script>
+    <script th:src="@{/js/activity.js}" defer></script>
+    <script th:src="@{/js/activity-optistic.js}" defer></script>
 </body>
 
 </html>
