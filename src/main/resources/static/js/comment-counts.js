@@ -2,12 +2,9 @@
 (function () {
   'use strict';
 
-  // デフォルト値（テンプレートで上書き可）
   var DEFAULT_MAX_COMMENT = 500;
   var DEFAULT_MAX_AUTHOR = 30;
 
-  // テンプレ側で次のように値を注入している場合、それがグローバル定数として使われます:
-  // <script th:inline="javascript"> const MAX_COMMENT_LENGTH = /*[[${maxCommentLength}]]*/ 500; </script>
   var MAX_BODY = (typeof MAX_COMMENT_LENGTH === 'number' && MAX_COMMENT_LENGTH > 0) ? MAX_COMMENT_LENGTH : DEFAULT_MAX_COMMENT;
   var MAX_AUTHOR = DEFAULT_MAX_AUTHOR;
 
@@ -27,7 +24,6 @@
   }
 
   function init() {
-    // IDs used in your current HTML
     var body = el('comment') || el('body') || el('body'); // accept either id
     var bodyCount = el('comment-count') || el('body-count');
     var author = el('author') || el('displayName') || null;

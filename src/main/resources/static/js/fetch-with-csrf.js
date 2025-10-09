@@ -11,7 +11,6 @@
   var CSRF_TOKEN = getMeta('_csrf');
   var CSRF_HEADER = getMeta('_csrf_header') || 'X-CSRF-TOKEN';
 
-  // 共通オプションを付けた fetch ラッパー
   function fetchWithCsrf(url, options) {
     options = options || {};
     options.headers = options.headers || {};

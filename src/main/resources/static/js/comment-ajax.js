@@ -5,7 +5,6 @@
   var form = document.querySelector('.comment-form[data-ajax="true"]') || document.querySelector('.comment-form');
   if (!form) return;
 
-  // メタから CSRF トークンとヘッダ名を取得（存在すればヘッダに入れる）
   function getMetaContent(name) {
     var m = document.querySelector('meta[name="' + name + '"]');
     return m ? m.getAttribute('content') : null;
@@ -79,7 +78,6 @@
 
       var params = toUrlSearchParams(form);
 
-      // 直接 fetch を使う（fetchWithCsrf を使わない）。CSRF ヘッダを手動付与。
       var headers = {
         'X-Requested-With': 'XMLHttpRequest',
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
