@@ -1,4 +1,3 @@
-// JS: src/main/resources/static/js/activity.js
 (function () {
 	'use strict';
 
@@ -38,6 +37,5 @@
 
 	}
 
-	// Expose for other modules
 	window.addActivity = addActivity;
 })();

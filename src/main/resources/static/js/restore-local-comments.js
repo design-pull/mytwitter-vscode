@@ -1,4 +1,3 @@
-// restore-local-comments.js
 (function () {
   'use strict';
 
@@ -36,7 +35,6 @@
       var bodyEl = li.querySelector('.comment-body');
       var author = authorEl ? authorEl.textContent.trim() : 'anonymous';
       var body = bodyEl ? bodyEl.textContent.trim() : '';
-      // try to read ISO timestamp from data-ts first, fallback to text content
       var iso = timeEl && timeEl.getAttribute ? timeEl.getAttribute('data-ts') : null;
       var createdAt = iso || (timeEl ? timeEl.textContent.trim() : new Date().toISOString());
       items.push({
@@ -61,14 +59,11 @@
   }
 
   function mergeServerAndLocal(serverItems, localItems) {
-    // map serverIds to avoid duplicates
     var seenServer = {};
     serverItems.forEach(function (s) {
       if (s.serverId) seenServer[s.serverId] = true;
     });
-    // include serverItems as-is
     var merged = serverItems.slice();
-    // append local items that are not present on server (serverId not set or not seen)
     localItems.forEach(function (l) {
       if (l.serverId && seenServer[l.serverId]) return;
       merged.push({
@@ -103,7 +98,6 @@
     strong.textContent = (c.author === 'anonymous' || !c.author) ? '匿名（とくめい）' : c.author;
     var small = document.createElement('small');
     small.className = 'comment-time';
-    // show human readable if createdAt is ISO like, but keep data-ts for parsing
     var d = parseISO(c.createdAt);
     if (d) {
       var yyyy = d.getFullYear();
@@ -142,7 +136,6 @@
     var lists = getTargetLists();
     if (lists.length === 0) return;
 
-    // collect server items from first list (they are identical view-wise across lists)
     var serverItems = collectServerItemsFromList(lists[0]);
     var localRaw = readLocalComments();
     var localItems = localRaw.map(normalizeLocal);
@@ -150,13 +143,11 @@
     var merged = mergeServerAndLocal(serverItems, localItems);
     var sorted = sortByCreatedAtDesc(merged);
 
-    // render sorted into each target list
     lists.forEach(function (list) {
       renderList(list, sorted);
     });
   }
 
-  // integrate with existing loadPage: call merge+render after loadPage completes
   function integrateWithLoadPage() {
     if (typeof window.loadPage === 'function') {
       var orig = window.loadPage;

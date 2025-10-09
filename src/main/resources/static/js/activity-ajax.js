@@ -1,4 +1,3 @@
-// static/js/activity-ajax.js
 (function () {
   'use strict';
   var form = document.querySelector('.comment-form[data-ajax="true"]');

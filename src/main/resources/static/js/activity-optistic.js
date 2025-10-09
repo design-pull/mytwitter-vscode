@@ -1,4 +1,3 @@
-// static/js/activity-optistic.js
 (function () {
   'use strict';
   function formatPreview(author, body) {

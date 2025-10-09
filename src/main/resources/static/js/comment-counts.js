@@ -1,4 +1,3 @@
-// comment-counts.js
 (function () {
   'use strict';
 

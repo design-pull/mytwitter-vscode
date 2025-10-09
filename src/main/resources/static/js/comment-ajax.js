@@ -1,4 +1,3 @@
-// comment-ajax.js
 (function () {
   'use strict';
 
