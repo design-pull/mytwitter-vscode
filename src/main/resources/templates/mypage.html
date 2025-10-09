@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- CSRF がある場合だけ出力 -->
     <meta th:if="${_csrf != null}" name="_csrf" th:content="${_csrf.token}" />
     <meta th:if="${_csrf != null}" name="_csrf_header" th:content="${_csrf.headerName}" />
 
@@ -34,13 +33,11 @@
     </header>
 
     <main class="mypage-container">
-        <!-- プロフィールカード -->
         <section class="profile-card">
             <h2 class="username" th:text="'ようこそ' + ${displayName} + 'さん'">ようこそ、user さん</h2>
             <p class="bio" th:utext="${bio}">ここに自己紹介や一言コメントを表示できます。</p>
         </section>
 
-        <!-- アクティビティカード -->
         <section class="content-card" aria-labelledby="activity-heading" role="region">
             <h3 id="activity-heading">最近のアクティビティ</h3>
             <p class="sr-only" id="activity-desc">最近のアクティビティの更新がここに表示されます。重要な更新はスクリーンリーダーに通知されます。</p>
@@ -56,8 +53,6 @@
             </ul>
         </section>
 
-
-        <!-- プロフィール編集フォーム -->
         <section class="content-card">
             <h3>プロフィール編集</h3>
             <form class="profile-form" th:action="@{/mypage/profile}" method="post" novalidate>
@@ -78,11 +73,9 @@
             </form>
         </section>
 
-        <!-- ページ末尾にスクリプトを読み込む行を追加 -->
         <script th:src="@{/js/mypage-profile-counts.js}" defer></script>
 
 
-        <!-- コメント投稿カード -->
         <section class="content-card">
             <h3>コメントを投稿</h3>
 
@@ -106,7 +99,6 @@
             </form>
         </section>
 
-        <!-- コメント一覧（500文字で切り詰め表示） -->
         <section class="content-card">
             <h3>コメント一覧</h3>
             <ul class="comment-list">

@@ -2,7 +2,6 @@
   margin-left: 0.5rem;
 }
 
-/* style.css に追加 */
 .activity-item { padding: 0.4rem 0; display:flex; gap:0.5rem; align-items:center; }
 .activity-icon { flex: 0 0 auto; }
 .fade-in { animation: fadeIn 0.6s ease both; }
@@ -19,10 +18,8 @@
 
 
 ul {
-  /* リストマーカーを非表示にする */
   list-style-type: none;
 }
-/* 親をフレックスにして折り返しを許可（既にある場合は重複しないよう統合） */
 .navbar {
   display: flex;
   align-items: center;
@@ -33,7 +30,6 @@ ul {
   flex-wrap: nowrap; /* 折り返しは不要なら nowrap に */
 }
 
-/* ロゴは左グループの先頭 */
 .navbar .logo {
   order: 0;
   margin: 0;
@@ -43,7 +39,6 @@ ul {
   flex: 0 0 auto;
 }
 
-/* 挨拶をロゴと同じ左側グループに並べる */
 .header-greeting {
   order: 0;               /* logo と同じグループに配置 */
   margin-left: 0;         /* inline style を削除してこれを有効にする */
@@ -56,7 +51,6 @@ ul {
   flex: 0 0 auto;
 }
 
-/* ナビは右端に寄せる */
 .navbar nav {
   order: 1;
   margin-left: auto;      /* 残りスペースを占めて右端へ */
@@ -67,7 +61,6 @@ ul {
   min-width: 0;
 }
 
-/* 狭い画面の挙動（必要なら調整） */
 @media (max-width: 720px) {
   .navbar {
     flex-wrap: wrap; /* 幅が狭くなれば折り返す */
@@ -92,7 +85,6 @@ ul {
   box-sizing: border-box;
 }
 
-/* コメント本文を安全に折り返す（長い単語や連続文字列を強制改行） */
 .comment-body {
   white-space: pre-wrap;          /* 改行と空白を保持しつつ折り返す */
   overflow-wrap: anywhere;       /* 長い単語でも行を分割して折り返す */
@@ -100,7 +92,6 @@ ul {
   hyphens: auto;                 /* 英単語のハイフネーション（ブラウザ依存） */
 }
 
-/* 長文をある行数で切って末尾に省略（例: 6行で切る） */
 .comment-body.clamp {
   display: -webkit-box;        /* WebKit ブラウザ用（必須） */
   -webkit-box-orient: vertical;
@@ -115,17 +106,14 @@ ul {
 }
 
 
-/* レイアウト崩れを防ぐためにカードの最大幅やはみ出し禁止 */
 .comment-card {
   max-width: 100%;
   box-sizing: border-box;
   word-wrap: break-word;
 }
 
-/* ===== Home page specific ===== */
 .home-wrap { max-width: 1200px; margin: 2rem auto; padding: 0 4rem; }
 
-/* Hero */
 .home-hero {
   grid-template-columns: 1fr 420px;
   gap: 2rem;
@@ -161,22 +149,15 @@ ul {
   .home-wrap { padding: 0 0.75rem; }
 }
 
-/* ========================= */
-/* マイページ・ログイン画面 共通デザイン */
-/* ========================= */
-
-/* --- 基本設定 --- */
 .mypage-body, .login-body {
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
 }
 
-/* マイページ背景 */
 .mypage-body {
   background: #f4f6fb;
 }
 
-/* ログイン背景 */
 .login-body {
   background: linear-gradient(135deg, #74ABE2, #5563DE);
   display: flex;
@@ -185,9 +166,6 @@ ul {
   height: 100vh;
 }
 
-/* ========================= */
-/* ナビゲーションバー */
-/* ========================= */
 .navbar {
   background: #5563DE;
   color: #fff;
@@ -217,9 +195,6 @@ ul {
   text-decoration: underline;
 }
 
-/* ========================= */
-/* マイページ構造 */
-/* ========================= */
 .mypage-container {
   display: flex;
   gap: 2rem;
@@ -228,7 +203,6 @@ ul {
   flex-wrap: wrap;
 }
 
-/* --- カード共通 --- */
 .profile-card,
 .content-card {
   background: #fff;
@@ -248,7 +222,6 @@ ul {
   flex: 2 1 400px;
 }
 
-/* --- 各要素 --- */
 .profile-img {
   border-radius: 50%;
   margin-bottom: 1rem;
@@ -280,7 +253,6 @@ ul {
   word-break: break-word;
 }
 
-/* アクティビティリスト */
 .content-card h3 {
   margin-top: 0;
   color: #333;
@@ -299,9 +271,6 @@ ul {
   overflow-wrap: anywhere;
 }
 
-/* ========================= */
-/* フォーム共通 */
-/* ========================= */
 .profile-form, .comment-form {
   display: flex;
   flex-direction: column;
@@ -330,9 +299,6 @@ ul {
   outline: none;
 }
 
-/* ========================= */
-/* ログインカード */
-/* ========================= */
 .login-container {
   background: #fff;
   padding: 2.5rem;
@@ -376,7 +342,6 @@ ul {
   outline: none;
 }
 
-/* ログインボタン */
 .login-btn {
   width: 100%;
   padding: 0.8rem;
@@ -399,11 +364,6 @@ ul {
   color: #666;
 }
 
-/* ========================= */
-/* レスポンシブ対応 */
-/* ========================= */
-
-/* --- スマホ (max-width: 480px) --- */
 @media (max-width: 480px) {
   .navbar {
     flex-direction: column;
@@ -448,7 +408,6 @@ ul {
   }
 }
 
-/* --- タブレット (max-width: 768px) --- */
 @media (max-width: 768px) {
   .mypage-container {
     flex-direction: column;
