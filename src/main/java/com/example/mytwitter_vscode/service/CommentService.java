@@ -2,6 +2,8 @@ package com.example.mytwitter_vscode.service;
 
 import com.example.mytwitter_vscode.model.Comment;
 import com.example.mytwitter_vscode.repository.CommentRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,9 +35,27 @@ public class CommentService {
         return repo.save(c);
     }
 
+    @Transactional
+    public Comment create(Comment comment) {
+        if (comment == null) throw new IllegalArgumentException("comment is null");
+        return create(comment.getAuthor(), comment.getBody());
+    }
+
+    public Page<Comment> findAll(Pageable pageable) {
+        return repo.findAll(pageable);
+    }
+
     public List<Comment> latest() {
-        // リポジトリに合わせて件数は20件（必要ならメソッドを50件に変更可能）
         return repo.findTop20ByOrderByCreatedAtDesc();
+    }
+
+    public boolean existsByAuthorAndBody(String author, String body) {
+        return repo.existsByAuthorAndBody(author, body);
+    }
+
+    @Transactional
+    public void deleteAll() {
+        repo.deleteAll();
     }
 
     private String sanitize(String s, int maxLen, String defaultVal) {

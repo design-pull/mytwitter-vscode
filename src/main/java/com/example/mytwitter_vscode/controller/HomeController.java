@@ -1,5 +1,6 @@
 package com.example.mytwitter_vscode.controller;
 
+import com.example.mytwitter_vscode.model.Comment;
 import com.example.mytwitter_vscode.service.CommentService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -22,10 +27,15 @@ public class HomeController {
 
     @GetMapping({"/", "/home"})
     public String home(Model model, HttpSession session) {
-        model.addAttribute("recentComments", commentService.latest());
+        List<Comment> recent = commentService.latest();
+        // createdAt を昇順（古い -> 新しい）に並べ替え
+        List<Comment> sorted = recent.stream()
+                .sorted(Comparator.comparing(Comment::getCreatedAt, Comparator.nullsFirst(Comparator.naturalOrder())))
+                .collect(Collectors.toList());
+
+        model.addAttribute("recentComments", sorted);
         model.addAttribute("maxCommentLength", MAX_COMMENT_LENGTH);
 
-        // セッションから表示名を取得（なければ "user" を表示）
         String sessionDisplayName = (String) session.getAttribute("displayName");
         String displayName = (sessionDisplayName == null || sessionDisplayName.isBlank()) ? "user" : sessionDisplayName;
         model.addAttribute("displayName", displayName);
@@ -36,24 +46,27 @@ public class HomeController {
     @PostMapping("/comments")
     public String postComment(@RequestParam String body,
                               @RequestParam(required = false) String author,
-                              RedirectAttributes redirectAttrs) {
+                              RedirectAttributes redirectAttrs,
+                              HttpSession session) {
 
-        String a = (author == null || author.isBlank()) ? "anonymous" : author.trim();
+        String sessionName = (String) session.getAttribute("displayName");
+        String a = (sessionName != null && !sessionName.isBlank()) ? sessionName.trim()
+                : (author == null || author.isBlank() ? "anonymous" : author.trim());
 
         if (body == null || body.isBlank()) {
             redirectAttrs.addFlashAttribute("error", "コメントは必須です。");
-            return "redirect:/home";
+            return "redirect:/";
         }
 
         if (body.length() > MAX_COMMENT_LENGTH) {
             redirectAttrs.addFlashAttribute("error",
                     "コメントは" + MAX_COMMENT_LENGTH + "文字以内で入力してください。");
-            return "redirect:/home";
+            return "redirect:/";
         }
 
         if (a.length() > MAX_AUTHOR_LENGTH) {
             redirectAttrs.addFlashAttribute("error", "表示名は" + MAX_AUTHOR_LENGTH + "文字以内で入力してください。");
-            return "redirect:/home";
+            return "redirect:/";
         }
 
         try {
@@ -63,7 +76,7 @@ public class HomeController {
             redirectAttrs.addFlashAttribute("error", "コメントの保存に失敗しました。時間を置いて再度お試しください。");
         }
 
-        return "redirect:/home";
+        return "redirect:/";
     }
 
 }

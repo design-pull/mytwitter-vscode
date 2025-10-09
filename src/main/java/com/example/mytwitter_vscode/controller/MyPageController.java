@@ -1,7 +1,7 @@
 package com.example.mytwitter_vscode.controller;
 
-import com.example.mytwitter_vscode.service.CommentService;
 import com.example.mytwitter_vscode.model.Comment;
+import com.example.mytwitter_vscode.service.CommentService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/mypage")
@@ -50,7 +52,11 @@ public class MyPageController {
         model.addAttribute("bio", effectiveBio);
 
         List<Comment> comments = commentService.latest();
-        model.addAttribute("comments", comments);
+        // createdAt を昇順（古い -> 新しい）に並べ替え
+        List<Comment> sorted = comments.stream()
+                .sorted(Comparator.comparing(Comment::getCreatedAt, Comparator.nullsFirst(Comparator.naturalOrder())))
+                .collect(Collectors.toList());
+        model.addAttribute("comments", sorted);
 
         model.addAttribute("maxCommentLength", MAX_COMMENT_LENGTH);
         model.addAttribute("maxDisplayNameLength", MAX_DISPLAYNAME_LENGTH);
@@ -95,7 +101,6 @@ public class MyPageController {
         return "redirect:/mypage";
     }
 
-    // 同期（フォーム）投稿はそのまま
     @PostMapping("/comment")
     public String addComment(@RequestParam String comment,
                              @RequestParam(required = false) String author,
@@ -131,10 +136,6 @@ public class MyPageController {
         return "redirect:/mypage";
     }
 
-    /**
-     * Ajax 用エンドポイントを別パスに分離: /mypage/comment/ajax
-     * consumes 指定を外して multipart/form-data や x-www-form-urlencoded の両方を受けられるようにしています。
-     */
     @PostMapping(value = "/comment/ajax", produces = "application/json")
     @ResponseBody
     public Map<String, Object> addCommentAjax(@RequestParam String comment,

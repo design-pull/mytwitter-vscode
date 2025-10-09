@@ -69,12 +69,13 @@
 
       <!-- コメント一覧カード（mypage と同じ見た目に揃える） -->
       <h3>コメント一覧</h3>
-      <ul class="recent-list">
+      <ul class="comment-list">
         <li th:each="c : ${recentComments}" class="recent-item comment-item">
           <div class="comment-meta recent-meta">
             <strong th:text="${c.author == 'anonymous' ? '匿名（とくめい）' : c.author}">匿名（とくめい）</strong>
-            <small class="comment-time recent-time"
-              th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd HH:mm')}">2025-01-01 12:00</small>
+            <small class="comment-time recent-time" th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd HH:mm')}"
+              th:attr="data-ts=${c.createdAt}">2025-01-01 12:00</small>
+
           </div>
           <p class="comment-body"
             th:text="${c.body != null && c.body.length() > maxCommentLength ? c.body.substring(0, maxCommentLength) + '...' : c.body}">
@@ -84,7 +85,7 @@
         <li th:if="${#lists.isEmpty(recentComments)}">まだ投稿はありません。</li>
       </ul>
     </section>
-    
+
     <section class="home-features">
       <article class="feature">
         <h4>プロフィール編集</h4>
@@ -106,6 +107,7 @@
   </footer>
 
   <script th:src="@{/js/comment-counts.js}" defer></script>
+  <script th:src="@{/js/restore-local-comments.js}" defer></script>
 </body>
 
 </html>

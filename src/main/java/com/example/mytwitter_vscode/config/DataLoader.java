@@ -11,10 +11,8 @@ public class DataLoader {
     @Bean
     CommandLineRunner init(CommentService commentService) {
         return args -> {
-            // 開発用のダミーデータ（起動時に一度だけ追加されます）
-            commentService.create("system", "ようこそ MyTwitter へ！");
-            commentService.create("alice", "はじめまして。");
-            commentService.create("bob", "今日も良い天気ですね。");
+            // 開発用: 一度だけ system を確実に残し、他は削除してから作る
+            commentService.deleteAll(); // ← CommentService/Repository に実装が必要
         };
     }
 }
