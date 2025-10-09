@@ -1,3 +1,7 @@
+.comment-list .comment-item .comment-time {
+  margin-left: 0.5rem;
+}
+
 /* style.css に追加 */
 .activity-item { padding: 0.4rem 0; display:flex; gap:0.5rem; align-items:center; }
 .activity-icon { flex: 0 0 auto; }

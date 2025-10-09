@@ -5,6 +5,13 @@
   <meta charset="utf-8" />
   <title>MyTwitter - ホーム</title>
   <link rel="stylesheet" th:href="@{/css/style.css}" />
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+  <link rel="icon" type="image/png" sizes="32x32" th:href="@{/icons/favicon-32x32.png}" />
+  <link rel="icon" type="image/png" sizes="16x16" th:href="@{/icons/favicon-16x16.png}" />
+  <link rel="apple-touch-icon" th:href="@{/icons/apple-touch-icon-152x152.png}" />
+  <link rel="manifest" th:href="@{/manifest.json}" />
+  <meta name="theme-color" content="#1E88E5" />
+
 </head>
 
 <body class="mypage-body">
@@ -36,7 +43,6 @@
         <img src="https://via.placeholder.com/280x180?text=MyTwitter" alt="" class="hero-image">
       </div>
     </section>
-
     <section class="home-recent">
       <h3>コメントを投稿しよう</h3>
 
@@ -84,21 +90,6 @@
         </li>
         <li th:if="${#lists.isEmpty(recentComments)}">まだ投稿はありません。</li>
       </ul>
-    </section>
-
-    <section class="home-features">
-      <article class="feature">
-        <h4>プロフィール編集</h4>
-        <p>表示名や自己紹介を編集できます。</p>
-      </article>
-      <article class="feature">
-        <h4>コメント投稿</h4>
-        <p>短いメッセージを投稿して共有できます。</p>
-      </article>
-      <article class="feature">
-        <h4>レスポンシブ</h4>
-        <p>スマホ・PC 双方で快適に動作します。</p>
-      </article>
     </section>
   </main>
 
