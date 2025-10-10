@@ -50,9 +50,6 @@ public class SecurityConfig {
 
         http.logout(logout -> logout.permitAll());
 
-        // h2-console は iframe を使うためフレームオプションを無効化
-        http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
-
         return http.build();
     }
 }
