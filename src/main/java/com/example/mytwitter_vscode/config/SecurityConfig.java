@@ -23,36 +23,28 @@ public class SecurityConfig {
     // 開発用の固定ユーザー（user/password）
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-        UserDetails user = User.withUsername("user")
-                .password(passwordEncoder.encode("password"))
-                .roles("USER")
-                .build();
+        UserDetails user = User.withUsername("user").password(passwordEncoder.encode("password"))
+                .roles("USER").build();
         return new InMemoryUserDetailsManager(user);
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                    "/", "/home", "/login",
-                    "/css/**", "/js/**", "/images/**",
-                    "/h2-console/**"   // H2 Console を許可
-                ).permitAll()
-                .requestMatchers("/mypage/**").authenticated()
-                .anyRequest().permitAll()
-        );
+                .requestMatchers("/", "/home", "/login", "/css/**", "/js/**", "/images/**")
+                .permitAll().requestMatchers("/mypage/**").authenticated().anyRequest()
+                .permitAll());
 
-        http.formLogin(form -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/mypage", true)
-                .permitAll()
-        );
+        http.formLogin(
+                form -> form.loginPage("/login").defaultSuccessUrl("/mypage", true).permitAll());
 
         http.logout(logout -> logout.permitAll());
 
-        // H2 Console 用に追加設定
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**")); // CSRF 無効化
-        http.headers(headers -> headers.frameOptions().disable());         // フレーム許可
+        // 開発環境だけ H2 Console を許可
+        if (System.getProperty("spring.profiles.active", "").equals("dev")) {
+            http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"));
+            http.headers(headers -> headers.frameOptions().disable());
+        }
 
         return http.build();
     }
