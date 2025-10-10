@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,25 +15,43 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 public class SecurityConfig {
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     // 開発用の固定ユーザー（user/password）
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withDefaultPasswordEncoder().username("user").password("password")
-                .roles("USER").build();
+    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+        UserDetails user = User.withUsername("user")
+                .password(passwordEncoder.encode("password"))
+                .roles("USER")
+                .build();
         return new InMemoryUserDetailsManager(user);
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/home", "/login", "/css/**", "/js/**", "/images/**")
-                .permitAll().requestMatchers("/mypage/**").authenticated().anyRequest().permitAll())
-                .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/mypage", true)
-                        .permitAll())
-                .logout(logout -> logout.permitAll());
+                .requestMatchers(
+                    "/", "/home", "/login",
+                    "/css/**", "/js/**", "/images/**",
+                    "/h2-console/**"
+                ).permitAll()
+                .requestMatchers("/mypage/**").authenticated()
+                .anyRequest().permitAll()
+        );
 
-        // 開発中は CSRF 無効化
-        http.csrf(csrf -> csrf.disable());
+        http.formLogin(form -> form
+                .loginPage("/login")
+                .defaultSuccessUrl("/mypage", true)
+                .permitAll()
+        );
+
+        http.logout(logout -> logout.permitAll());
+
+        // h2-console は iframe を使うためフレームオプションを無効化
+        http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
 
         return http.build();
     }
