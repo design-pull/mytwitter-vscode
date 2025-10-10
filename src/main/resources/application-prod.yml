@@ -16,6 +16,11 @@ spring:
     hikari:
       maximum-pool-size: 10
 
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
 logging:
   level:
     root: INFO
