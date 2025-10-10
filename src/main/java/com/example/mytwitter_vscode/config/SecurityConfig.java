@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .requestMatchers(
                     "/", "/home", "/login",
                     "/css/**", "/js/**", "/images/**",
-                    "/h2-console/**"
+                    "/h2-console/**"   // H2 Console を許可
                 ).permitAll()
                 .requestMatchers("/mypage/**").authenticated()
                 .anyRequest().permitAll()
@@ -49,6 +49,10 @@ public class SecurityConfig {
         );
 
         http.logout(logout -> logout.permitAll());
+
+        // H2 Console 用に追加設定
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**")); // CSRF 無効化
+        http.headers(headers -> headers.frameOptions().disable());         // フレーム許可
 
         return http.build();
     }
