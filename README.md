@@ -48,7 +48,7 @@ Render 上にデプロイし、**PostgreSQL** をバックエンドデータベ�
 - Docker Compose によるローカル開発環境の整備  
 - CI/CD パイプラインの導入  
 
-============================================================================================
+==========
 # MyTwitter (Spring Boot × PostgreSQL × Render)
 
 ## 🌐 Live Demo
