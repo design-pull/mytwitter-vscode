@@ -16,4 +16,5 @@ ARG JAR=/workspace/target/*.jar
 COPY --from=build ${JAR} /app.jar
 EXPOSE 8080
 ENV JAVA_OPTS="-Xms256m -Xmx512m"
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Dserver.port=${PORT:-8080} -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE:-prod} -jar /app.jar"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Dserver.port=$PORT -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE:-prod} -jar /app.jar"]
+

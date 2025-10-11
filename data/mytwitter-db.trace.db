@@ -748,3 +748,15 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/user/my
 	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
 	... 54 more
+2025-10-11 08:47:11.165318+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "SELECT * FROM [*]<テーブル名>"; 期待されるステートメント "identifier"
+Syntax error in SQL statement "SELECT * FROM [*]<テーブル名>"; expected "identifier"; SQL statement:
+SELECT * FROM <テーブル名> [42001-232]
+2025-10-11 08:47:15.873211+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "SELECT * FROM [*]<テーブル名>"; 期待されるステートメント "identifier"
+Syntax error in SQL statement "SELECT * FROM [*]<テーブル名>"; expected "identifier"; SQL statement:
+SELECT * FROM <テーブル名> [42001-232]
+2025-10-11 08:47:16.978653+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "SELECT * FROM [*]<テーブル名>"; 期待されるステートメント "identifier"
+Syntax error in SQL statement "SELECT * FROM [*]<テーブル名>"; expected "identifier"; SQL statement:
+SELECT * FROM <テーブル名> [42001-232]
