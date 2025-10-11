@@ -22,7 +22,10 @@
         <nav>
             <a href="/">ホーム</a>
             <a href="/mypage">マイページ</a>
-            <a href="/logout">ログアウト</a>
+            <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">ログアウト</a>
+            <form id="logoutForm" th:action="@{/logout}" method="post" style="display:none;">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            </form>
         </nav>
         <div class="header-greeting">
             <span
@@ -78,7 +81,6 @@
 
         <section class="content-card">
             <h3>コメントを投稿</h3>
-
             <form class="comment-form" th:action="@{/mypage/comment}" method="post" data-ajax="true" novalidate>
                 <div class="form-group">
                     <label for="comment">コメント</label>
@@ -87,14 +89,12 @@
                         maxlength="500" th:text="${commentDraft != null ? commentDraft : ''}"></textarea>
                     <small id="comment-help" class="form-help">現在: <span id="comment-count">0</span></small>
                 </div>
-
                 <div class="form-group">
                     <label for="author">表示名（任意）</label>
                     <input id="author" name="author" type="text" maxlength="30" class="input-text" placeholder="表示名（任意）"
                         th:value="${displayName}" aria-describedby="author-help" />
                     <small id="author-help" class="form-help">現在: <span id="author-count">0</span></small>
                 </div>
-
                 <button type="submit" class="login-btn">投稿</button>
             </form>
         </section>
@@ -107,7 +107,6 @@
                         <strong th:text="${c.author == 'anonymous' ? '匿名（とくめい）' : c.author}">匿名（とくめい）</strong>
                         <small class="comment-time" th:text="${#temporals.format(c.createdAt, 'yyyy/MM/dd HH:mm')}"
                             th:attr="data-ts=${c.createdAt}">日時</small>
-
                     </div>
                     <p class="comment-body"
                         th:text="${c.body != null && c.body.length() > maxCommentLength ? c.body.substring(0, maxCommentLength) + '...' : c.body}">
